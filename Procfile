@@ -1,1 +1,1 @@
-web: python manage.py collecstatic && gunicorn galaxymusicdp.wsgi
+web: python manage.py collectstatic && gunicorn galaxymusicdp.wsgi
