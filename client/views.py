@@ -5,5 +5,11 @@ from django.shortcuts import render
 def render_home(request):
     return render(request, 'home.html')
 
-def render_crudProduct(request):
-    return render(request, 'crudProduct.html')
+def render_admin(request):
+    return render(request, 'admin.html')
+
+def render_disco(request):
+    return render(request, 'disco.html')
+
+def render_grafico(request):
+    return render(request, 'graficos.html')

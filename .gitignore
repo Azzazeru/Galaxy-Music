@@ -3,3 +3,8 @@ __pycache__
 db.sqlite3
 staticfiles
 .env
+db.sql
+dbe.txt
+graficoScript.js
+graficoStyles.css
+grafico.html
