@@ -5,6 +5,3 @@ staticfiles
 .env
 db.sql
 dbe.txt
-graficoScript.js
-graficoStyles.css
-grafico.html

@@ -12,4 +12,4 @@ def render_disco(request):
     return render(request, 'disco.html')
 
 def render_grafico(request):
-    return render(request, 'graficos.html')
+    return render(request, 'grafico.html')

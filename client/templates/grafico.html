@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graficos</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/graficoStyles.css' %}">
+</head>
+
+<body>
+    <main>
+
+        <h1>Productos</h1>
+        <p>Visualización de estadísticas</p>
+
+        <hr>
+
+        <section class="cols-2">
+
+            <figure>
+                <h2>Stock Productos</h2>
+                <canvas id="modelsChart"></canvas>
+            </figure>
+
+            <figure>
+                <h2>pronto
+                    <!-- <select id="featuresOptions">
+                        <option value="height">Altura (m)</option>
+                        <option value="length">Longitud (m)</option>
+                        <option value="speed">Velocidad (km/h)</option>
+                    </select> -->
+                </h2>
+                <canvas id="featuresChart"></canvas>
+            </figure>
+
+        </section>
+
+        <section class="cols-1">
+            <figure>
+                <h2>Ventas</h2>
+                <canvas id="yearsChart" height="300px"></canvas>
+            </figure>
+        </section>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="{% static 'js/graficoScript.js' %}"></script>
+</body>
+
+</html>
