@@ -1,3 +1,5 @@
+const url = "http://127.0.0.1:8000/api/productos/"
+
 const fetchCoastersData = (...urls) => {
   const promises = urls.map((url) =>
     fetch(url).then((response) => response.json())
@@ -24,7 +26,7 @@ const getDataColors = (opacity) => {
 Chart.defaults.color = "#FFFFFF";
 
 const printCharts = () => {
-  fetchCoastersData("https://gmad.up.railway.app/api/productos/").then(
+  fetchCoastersData(url).then(
     ([allProducts]) => {
       renderModelsChart(allProducts);
 

@@ -5,3 +5,4 @@ staticfiles
 .env
 db.sql
 dbe.txt
+db.json

@@ -1,4 +1,5 @@
-const url = "https://gmad.up.railway.app/api/"
+// const url = "https://gmad.up.railway.app/api/"
+const url = "http://127.0.0.1:8000/api/"
         const d = document,
             $discosTable = d.querySelector('#discos-table tbody'),
             $instrumentosTable = d.querySelector('#instrumentos-table tbody'),

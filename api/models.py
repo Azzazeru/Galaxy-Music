@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 # Sello discográfico
 class SelloDiscografico(models.Model):
@@ -90,4 +91,4 @@ class Producto(models.Model):
     instrumento = models.ForeignKey(Instrumento, null=True, blank=True, on_delete=models.CASCADE)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
-
+    

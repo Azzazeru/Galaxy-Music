@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
 
+from django.contrib.auth.models import User
+
 class SelloDiscograficoSerializer(serializers.ModelSerializer):
     class Meta:
         model = SelloDiscografico
@@ -85,7 +87,6 @@ class InstrumentoSerializer(serializers.ModelSerializer):
         model = Instrumento
         fields = ['id_instrumento', 'modelo', 'detalle_instrumento', 'detalle_instrumento_id']
 
-
 class ProductoSerializer(serializers.ModelSerializer):
     disco_id = serializers.PrimaryKeyRelatedField(queryset=Disco.objects.all(), source='disco', write_only=True, allow_null=True, required=False)
     instrumento_id = serializers.PrimaryKeyRelatedField(queryset=Instrumento.objects.all(), source='instrumento', write_only=True, allow_null=True, required=False)
@@ -95,3 +96,8 @@ class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = ['id_producto', 'disco', 'disco_id', 'instrumento', 'instrumento_id', 'precio', 'stock']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
