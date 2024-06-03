@@ -14,49 +14,53 @@ from django.shortcuts import get_object_or_404
 from .models import *
 from .serializer import *
 
-
-class SelloDiscograficoViewSet(viewsets.ReadOnlyModelViewSet):
+#.ReadOnlyModelViewSet
+class SelloDiscograficoViewSet(viewsets.ModelViewSet):
     queryset = SelloDiscografico.objects.all()
     serializer_class = SelloDiscograficoSerializer
 
-class GeneroMusicalViewSet(viewsets.ReadOnlyModelViewSet):
+class GeneroMusicalViewSet(viewsets.ModelViewSet):
     queryset = GeneroMusical.objects.all()
     serializer_class = GeneroMusicalSerializer
 
-class ArtistaViewSet(viewsets.ReadOnlyModelViewSet):
+class ArtistaViewSet(viewsets.ModelViewSet):
     queryset = Artista.objects.all()
     serializer_class = ArtistaSerializer
 
-class DetalleDiscoViewSet(viewsets.ReadOnlyModelViewSet):
+class DetalleDiscoViewSet(viewsets.ModelViewSet):
     queryset = DetalleDisco.objects.all()
     serializer_class = DetalleDiscoSerializer
 
-class CancionViewSet(viewsets.ReadOnlyModelViewSet):
+class CancionViewSet(viewsets.ModelViewSet):
     queryset = Cancion.objects.all()
     serializer_class = CancionSerializer
 
-class DiscoViewSet(viewsets.ReadOnlyModelViewSet):
+class DiscoViewSet(viewsets.ModelViewSet):
     queryset = Disco.objects.all()
     serializer_class = DiscoSerializer
 
-class TipoInstrumentoViewSet(viewsets.ReadOnlyModelViewSet):
+class TipoInstrumentoViewSet(viewsets.ModelViewSet):
     queryset = TipoInstrumento.objects.all()
     serializer_class = TipoInstrumentoSerializer
 
-class MarcaViewSet(viewsets.ReadOnlyModelViewSet):
+class MarcaViewSet(viewsets.ModelViewSet):
     queryset = Marca.objects.all()
     serializer_class = MarcaSerializer
 
-class DetalleInstrumentoViewSet(viewsets.ReadOnlyModelViewSet):
+class DetalleInstrumentoViewSet(viewsets.ModelViewSet):
     queryset = DetalleInstrumento.objects.all()
     serializer_class = DetalleInstrumentoSerializer
 
-class InstrumentoViewSet(viewsets.ReadOnlyModelViewSet):
+class InstrumentoViewSet(viewsets.ModelViewSet):
     queryset = Instrumento.objects.all()
     serializer_class = InstrumentoSerializer
 
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+
 # @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
+'''@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
@@ -64,8 +68,8 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Producto.objects.filter(owner=user)
-
+        return Producto.objects.filter(owner=user)'''
+    
 @api_view(['POST'])
 def login(request):
 
