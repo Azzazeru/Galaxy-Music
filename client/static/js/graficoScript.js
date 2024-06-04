@@ -1,4 +1,5 @@
-const url = "http://127.0.0.1:8000/api/productos/"
+const url = "https://gmad.up.railway.app/api/productos"
+// const url = "http://127.0.0.1:8000/api/productos/"
 
 const fetchCoastersData = (...urls) => {
   const promises = urls.map((url) =>

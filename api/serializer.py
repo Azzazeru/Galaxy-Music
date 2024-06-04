@@ -95,7 +95,7 @@ class ProductoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Producto
-        fields = ['id_producto', 'disco', 'disco_id', 'instrumento', 'instrumento_id', 'precio', 'stock']
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 
+
 # Sello discográfico
 class SelloDiscografico(models.Model):
     id_sello_discografico = models.AutoField(primary_key=True)
@@ -47,7 +48,7 @@ class Cancion(models.Model):
 class Disco(models.Model):
     id_disco = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=100)
-    detalle_disco = models.ForeignKey(DetalleDisco, on_delete=models.CASCADE, null=True)
+    detalle_disco = models.OneToOneField(DetalleDisco, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.titulo
@@ -87,8 +88,8 @@ class Instrumento(models.Model):
 # Producto
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True)
-    disco = models.ForeignKey(Disco, null=True, blank=True, on_delete=models.CASCADE)
+    disco = models.OneToOneField(Disco, null=True, blank=True, on_delete=models.CASCADE)
     instrumento = models.ForeignKey(Instrumento, null=True, blank=True, on_delete=models.CASCADE)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
-    
+    aprobado = models.BooleanField(default=False)

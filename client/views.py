@@ -13,3 +13,9 @@ def render_disco(request):
 
 def render_grafico(request):
     return render(request, 'grafico.html')
+
+def render_instrumento(request):
+    return render(request, 'instrumento.html')
+
+def render_aprobar_productos(request):
+    return render(request, 'aprobar_productos.html')

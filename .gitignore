@@ -6,3 +6,4 @@ staticfiles
 db.sql
 dbe.txt
 db.json
+migrations

@@ -27,10 +27,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('client/', include('client.urls') ),
     path('api/', include('api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    # path('api/', auth_views.LoginView.as_view()),
-    # path('api-token-auth/', obtain_auth_token),
-
     path('', RedirectView.as_view(url='/client/home')),
-    path('api-auth/', RedirectView.as_view(url='/api-auth/login')),
 ]
