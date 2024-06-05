@@ -2,6 +2,8 @@ from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from .views import *
 
+
+
 router = DefaultRouter()
 router.register(r'sellos_discograficos', SelloDiscograficoViewSet)
 router.register(r'generos_musicales', GeneroMusicalViewSet)
@@ -18,4 +20,8 @@ router.register(r'productos', ProductoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+
+    # path('login/', LoginView.as_view(), name='login'),
+    # path('logout/', LogoutView.as_view(), name='logout'),
+
 ]

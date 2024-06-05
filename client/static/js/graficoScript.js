@@ -1,7 +1,10 @@
 const url = "https://gmad.up.railway.app/api/productos"
 // const url = "http://127.0.0.1:8000/api/productos/"
 
-const fetchCoastersData = (...urls) => {
+Chart.defaults.color = "#FFFFFF";
+Chart.defaults.borderColor = "#444";
+
+const fetchProductsData = (...urls) => {
   const promises = urls.map((url) =>
     fetch(url).then((response) => response.json())
   );
@@ -24,19 +27,42 @@ const getDataColors = (opacity) => {
   return colors.map((color) => (opacity ? `${color + opacity}` : color));
 };
 
-Chart.defaults.color = "#FFFFFF";
-
 const printCharts = () => {
-  fetchCoastersData(url).then(
+  fetchProductsData(url).then(
     ([allProducts]) => {
       renderModelsChart(allProducts);
-
-      // console.log(allProducts)
+      renderFeaturesChart(allProducts);    
+      enableEventHandlers(allProducts);
     }
+
   );
 
   renderModelsChart();
 };
+
+const updateChartData = (chartId, data, label) => {
+  const chart = Chart.getChart(chartId);
+  chart.data.datasets[0].data = data;
+  chart.data.datasets[0].label = label;
+  chart.update();
+};
+
+const enableEventHandlers = products => {
+  document.querySelector('#featuresOptions').onchange = e => {
+    const { value: property, text: label } = e.target.selectedOptions[0];
+    console.log(property, label);
+
+    let newData;
+    if (label === 'Mas caro') {
+      newData = products.map(product => product[property]);
+    } else if (label === 'Mas barato') {
+      newData = products.map(product => -product[property]);
+    }
+
+    updateChartData('featuresChart', newData, label);
+  };
+};
+
 
 const renderModelsChart = (products) => {
   // Mapea los productos a sus descripciones y agrupa por descripciones únicas
@@ -84,31 +110,34 @@ const renderModelsChart = (products) => {
   new Chart("modelsChart", { type: "doughnut", data, options });
 };
 
+const renderFeaturesChart = products => {
+
+  const data = {
+    labels: products.map(product => {
+      const tituloDisco = product.disco ? product.disco.titulo : '';
+      const modeloInstrumento = product.instrumento ? product.instrumento.modelo : '';
+      return tituloDisco && modeloInstrumento ? `${tituloDisco} - ${modeloInstrumento}` : (tituloDisco || modeloInstrumento);
+    }),
+    datasets: [{
+      label: "Precio",
+      data: products.map(product => product.precio),
+      borderColor: getDataColors()[0],
+      backgroundColor: getDataColors(20)[0],
+      
+    }]
+  }
+  const options = {
+    plugins: {
+      legend: { display: false}
+    },
+    scales: {
+      r: {
+        ticks: { display: false}
+      }
+    }
+  }
+
+  new Chart('featuresChart', { type: 'radar', data, options})
+}
+
 printCharts();
-
-const enableEventHandlers = (coasters) => {
-  document.querySelector("#featuresOptions").onchange = (e) => {
-    const { value: property, text: label } = e.target.selectedOptions[0];
-
-    const newData = coasters.map((coaster) => coaster[property]);
-
-    updateChartData("featuresChart", newData, label);
-  };
-};
-
-const getCoastersByYear = (coasters, years) => {
-  const coastersByYear = years.map((yearsRange) => {
-    const [from, to] = yearsRange.split("-");
-    return coasters.filter(
-      (eachCoaster) => eachCoaster.year >= from && eachCoaster.year <= to
-    ).length;
-  });
-  return coastersByYear;
-};
-
-const updateChartData = (chartId, data, label) => {
-  const chart = Chart.getChart(chartId);
-  chart.data.datasets[0].data = data;
-  chart.data.datasets[0].label = label;
-  chart.update();
-};
