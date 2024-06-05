@@ -209,7 +209,7 @@ d.addEventListener("click", async e => {
   if(e.target.matches(".delete")){
     let isDelete = confirm(`¿Estas seguro que deseas eliminar el disco: ${e.target.dataset.titulo} con id: ${e.target.dataset.id}?`);
     if(isDelete){
-      console.log("Hola")
+      // console.log("Hola")
       try {
         let options = {
           method: "DELETE",

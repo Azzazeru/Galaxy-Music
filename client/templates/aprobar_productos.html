@@ -1,11 +1,48 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <h1>Hola mundo</h1>
+    <body>
+        <h1 class="text-center">Aprobar Productos</h1>
+        <section class="crud">
+            <article>
+                    <h2 class="text-center">Productos</h2>
+                <table class="table crud-table" id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Estado</th>
+                            <th>Instrumento / Disco</th>
+                            <th>Modelo / Titulo</th>
+                            <form action="" class="crud-form">
+                                <input type="hidden" name="id">
+                            </form>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </article>
+        </section>
+        <template id="template">
+            <tr>
+                <td class="id"></td>
+                <td class="estado"></td>
+                <td class="instrumento-disco"></td>
+                <td class="modelo-titulo"></td>
+                <td>
+                    <button class="btn btn-warning check">Aprobar</button>
+                </td>
+            </tr>
+        </template>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+        <script src="{% static 'js/aprobar_productosScript.js' %}"></script>
+    </body>
 </body>
 </html>
