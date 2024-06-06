@@ -1,19 +1,17 @@
+{% extends 'base/padre.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <body>
-        <h1 class="text-center">Aprobar Productos</h1>
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/apruebos.css' %}">
+{% endblock css %}
+{% block contenido %}
+<hr>
+<main class="mt-5">
+    <h1 class="text-center">Sistema de Apruebo</h1>
+    <hr>
+    <div class="container">
         <section class="crud">
             <article>
-                    <h2 class="text-center">Productos</h2>
+                <h2 class="text-center">Productos</h2>
                 <table class="table crud-table" id="table">
                     <thead>
                         <tr>
@@ -28,21 +26,23 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+                <template id="template">
+                    <tr>
+                        <td class="id"></td>
+                        <td class="estado"></td>
+                        <td class="instrumento-disco"></td>
+                        <td class="modelo-titulo"></td>
+                        <td>
+                            <button class="btn btn-warning check">Aprobar</button>
+                        </td>
+                    </tr>
+                </template>
             </article>
         </section>
-        <template id="template">
-            <tr>
-                <td class="id"></td>
-                <td class="estado"></td>
-                <td class="instrumento-disco"></td>
-                <td class="modelo-titulo"></td>
-                <td>
-                    <button class="btn btn-warning check">Aprobar</button>
-                </td>
-            </tr>
-        </template>
-        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-        <script src="{% static 'js/aprobar_productosScript.js' %}"></script>
-    </body>
-</body>
-</html>
+    </div>
+</main>
+{% endblock contenido %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script src="{% static 'js/aprobar_productosScript.js' %}"></script>
+{% endblock js %}

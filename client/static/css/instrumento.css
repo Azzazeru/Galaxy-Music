@@ -8,6 +8,8 @@ body {
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
+    background-color: rgba(49, 49, 49, 0.69);
+    border-radius: 10px;
 }
 
 .crud form {
@@ -29,13 +31,28 @@ body {
     border-radius: 4px;
 }
 
+.table{
+    background-color: transparent;
+}
+
 .crud-table th,
 .crud-table td {
     vertical-align: middle !important;
+    background-color: transparent;
+    color: white; 
 }
 
 .edit,
 .delete {
     padding: 5px 10px;
     margin-right: 5px;
+}
+
+.lista{
+    background-color: rgba(49, 49, 49, 0.69);
+    padding: 10px;
+    border-radius: 10px;
+    max-height: 400px;
+    overflow-y: auto; 
+
 }
