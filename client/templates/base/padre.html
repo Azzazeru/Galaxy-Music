@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block titulo %}
+            Area de Analisis
+        {% endblock titulo %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body{
+            width: 99vw;
+            min-height: 100vh;
+            height: auto;
+            background-color: #F0FFFF;
+        }
+    </style>
+
+    {% block css %}
+    {% endblock css %}
+</head>
+<body>
+    {% block navbar %}
+    {% include 'base/navbar.html' %}
+    {% endblock navbar %}
+    
+    {% block contenido %}
+    {% endblock contenido %}
+
+    {% block footer %}
+    {% include 'base/footer.html' %}
+    {% endblock footer %}
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    
+    {% block js %}
+    {% endblock js %}
+    
+</body>
+</html>

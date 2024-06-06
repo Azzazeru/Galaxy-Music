@@ -1,0 +1,17 @@
+body{
+    width: 99vw;
+    min-height: 100vh;
+    height: auto;
+    background-color: #F0FFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area{
+    background-color: rgba(49, 49, 49, 0.69);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    box-shadow: 3px 3px 3px 3px blue;
+}
