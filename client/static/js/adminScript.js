@@ -12,10 +12,7 @@ const d = document,
 const getAll = async () => {
     try {
         let res = await axios.get(url + 'productos/') , json = await res.data;
-
-        console.log(json);
-        console.log(url)
-
+        
         json.forEach(p => {
             if (p.disco) {
                 $discoTemplate.querySelector(".id").textContent = p.id_producto;

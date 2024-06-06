@@ -10,7 +10,6 @@ const d = document,
 const getAll = async () => {
     try {
         let res = await axios.get(url + 'productos/') , json = await res.data;
-        console.log(json)
         json.forEach(p => {
             if(p.disco && !p.aprobado){
                 $template.querySelector(".id").textContent = p.id_producto;
@@ -72,6 +71,5 @@ d.addEventListener("click", async e => {
         }
     }
 });
-
 
 d.addEventListener("DOMContentLoaded", getAll);

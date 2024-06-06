@@ -50,7 +50,6 @@ const updateChartData = (chartId, data, label) => {
 const enableEventHandlers = products => {
   document.querySelector('#featuresOptions').onchange = e => {
     const { value: property, text: label } = e.target.selectedOptions[0];
-    console.log(property, label);
 
     let newData;
     if (label === 'Mas caro') {
@@ -65,7 +64,6 @@ const enableEventHandlers = products => {
 
 
 const renderModelsChart = (products) => {
-  // Mapea los productos a sus descripciones y agrupa por descripciones únicas
   const productMap = products.reduce((acc, product) => {
     let productName;
     if (product.instrumento) {

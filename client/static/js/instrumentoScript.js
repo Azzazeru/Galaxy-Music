@@ -13,8 +13,6 @@ const getAll = async () => {
     let res = await axios.get(url + "productos/"),
       json = await res.data;
 
-    // console.log(json);
-
     json.forEach((p) => {
       if (p.instrumento) {
         $instrumentoTemplate.querySelector(".id").textContent = p.instrumento.id_instrumento;
@@ -24,8 +22,7 @@ const getAll = async () => {
         $instrumentoTemplate.querySelector(".tipo_instrumento").textContent = p.instrumento.detalle_instrumento?.tipo_instrumento?.tipo;
         $instrumentoTemplate.querySelector(".marca").textContent = p.instrumento.detalle_instrumento?.marca?.nombre;
         $instrumentoTemplate.querySelector(".descripcion").textContent = p.instrumento.detalle_instrumento?.descripcion;
-    
-        // Ajustar la configuración del dataset
+
         $instrumentoTemplate.querySelector(".edit").dataset.id = p.instrumento.id_instrumento;
         $instrumentoTemplate.querySelector(".edit").dataset.id_producto = p.id_producto;
         $instrumentoTemplate.querySelector(".edit").dataset.id_detalle_instrumento = p.instrumento.detalle_instrumento?.id_detalle_instrumento;
@@ -250,24 +247,20 @@ d.addEventListener("click", async e => {
       
     }
   }
-
 })
 
 d.addEventListener("DOMContentLoaded", function () {
-    // Referencia al elemento select
     const selectElement = document.getElementById("tipo-instrumento-select");
   
-    // Función para poblar el select con opciones
     function populateSelect(data) {
       data.forEach((item) => {
         const option = document.createElement("option");
-        option.value = item.id_tipo_instrumento; // Ajusta esto según la estructura de tu objeto de la API
-        option.textContent = item.tipo; // Ajusta esto según la estructura de tu objeto de la API
+        option.value = item.id_tipo_instrumento;
+        option.textContent = item.tipo;
         selectElement.appendChild(option);
       });
     }
   
-    // Llamada a la API REST usando Axios
     axios
       .get(url + "tipos_instrumentos/")
       .then((response) => {
@@ -279,20 +272,17 @@ d.addEventListener("DOMContentLoaded", function () {
   });
   
   d.addEventListener("DOMContentLoaded", function () {
-    // Referencia al elemento select
     const selectElement = document.getElementById("marca-select");
   
-    // Función para poblar el select con opciones
     function populateSelect(data) {
       data.forEach((item) => {
         const option = document.createElement("option");
-        option.value = item.id_marca; // Ajusta esto según la estructura de tu objeto de la API
-        option.textContent = item.nombre; // Ajusta esto según la estructura de tu objeto de la API
+        option.value = item.id_marca;
+        option.textContent = item.nombre;
         selectElement.appendChild(option);
       });
     }
   
-    // Llamada a la API REST usando Axios
     axios
       .get(url + "marcas/")
       .then((response) => {

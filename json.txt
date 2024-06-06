@@ -1,0 +1,70 @@
+{
+  "artista": {
+    "nombre": "David Bowie"
+  }
+}
+{
+  "marca": {
+    "nombre": "Casio"
+  }
+}
+{
+  "tipo_instrumento": {
+    "tipo": "Saxofón"
+  }
+}
+{
+  "genero_musical": {
+    "nombre": "Funk"
+  }
+}
+{
+  "sello_discografico": {
+    "nombre": "Atlantic Records"
+  }
+}
+{
+  "detalledisco": {
+    "sello_discografico_id": 6,
+    "genero_musical_id": 6,
+    "artista_id": 6
+  }
+}
+{
+  "disco": {
+    "titulo": "Dark Side of the Moon",
+    "detalle_disco_id": 6
+  }
+}
+{
+  "detalleinstrumento": {
+    "descripcion": "Teclado eléctrico portátil",
+    "tipo_instrumento_id": 6,
+    "marca_id": 6
+  }
+}
+{
+  "instrumento": {
+    "id_instrumento": 6,
+    "modelo": "Nord Electro 5D",
+    "detalle_instrumento_id": 6
+  }
+}
+{
+  "producto": {
+    "disco_id": 6,
+    "instrumento_id": null,
+    "precio": 24000,
+    "stock": 15,
+    "aprobado": true
+  }
+}
+{
+  "producto": {
+    "disco_id": null,
+    "instrumento_id": 6,
+    "precio": 24000,
+    "stock": 15,
+    "aprobado": true
+  }
+}

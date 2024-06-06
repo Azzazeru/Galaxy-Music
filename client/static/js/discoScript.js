@@ -13,8 +13,6 @@ const getAll = async () => {
     let res = await axios.get(url + "productos/"),
       json = await res.data;
 
-    // console.log(json);
-
     json.forEach((p) => {
       if (p.disco) {
         $discoTemplate.querySelector(".id").textContent = p.disco.id_disco;
@@ -25,7 +23,6 @@ const getAll = async () => {
         $discoTemplate.querySelector(".genero").textContent = p.disco.detalle_disco?.genero_musical?.nombre;
         $discoTemplate.querySelector(".artista").textContent = p.disco.detalle_disco?.artista?.nombre;
     
-        // Ajustar la configuración del dataset
         $discoTemplate.querySelector(".edit").dataset.id = p.disco.id_disco;
         $discoTemplate.querySelector(".edit").dataset.id_producto = p.id_producto;
         $discoTemplate.querySelector(".edit").dataset.id_detalle_disco = p.disco.detalle_disco?.id_detalle_disco;
@@ -73,12 +70,11 @@ d.addEventListener("submit", async e => {
             }
             let res = await axios(url + 'detalles_discos/', options);
             let json = await res.data;
-
       } catch (error) {
         console.error(error);
       }
-
       try {
+
         let res = await axios(url + "detalles_discos/");
         let json = await res.data;
         lastId = json[json.length-1].id_detalle_disco;
@@ -117,6 +113,7 @@ d.addEventListener("submit", async e => {
             }
         res = await axios(url + "productos/", options);
         json = await res.data;
+
   
         location.reload(true);
       } catch (error) {
@@ -189,8 +186,7 @@ d.addEventListener("submit", async e => {
     }
   }else{
     }
-  });
-
+});
 
 d.addEventListener("click", async e => {
   if(e.target.matches(".edit")){
@@ -209,7 +205,6 @@ d.addEventListener("click", async e => {
   if(e.target.matches(".delete")){
     let isDelete = confirm(`¿Estas seguro que deseas eliminar el disco: ${e.target.dataset.titulo} con id: ${e.target.dataset.id}?`);
     if(isDelete){
-      // console.log("Hola")
       try {
         let options = {
           method: "DELETE",
@@ -247,29 +242,23 @@ d.addEventListener("click", async e => {
         location.reload(true);
 
       } catch (error) {
-        
       }
-      
     }
   }
-
 })
 
 d.addEventListener("DOMContentLoaded", function () {
-  // Referencia al elemento select
   const selectElement = document.getElementById("sello-select");
 
-  // Función para poblar el select con opciones
   function populateSelect(data) {
     data.forEach((item) => {
       const option = document.createElement("option");
-      option.value = item.id_sello_discografico; // Ajusta esto según la estructura de tu objeto de la API
-      option.textContent = item.nombre; // Ajusta esto según la estructura de tu objeto de la API
+      option.value = item.id_sello_discografico; 
+      option.textContent = item.nombre; 
       selectElement.appendChild(option);
     });
   }
 
-  // Llamada a la API REST usando Axios
   axios
     .get(url + "sellos_discograficos/")
     .then((response) => {
@@ -281,20 +270,17 @@ d.addEventListener("DOMContentLoaded", function () {
 });
 
 d.addEventListener("DOMContentLoaded", function () {
-  // Referencia al elemento select
   const selectElement = document.getElementById("genero-select");
 
-  // Función para poblar el select con opciones
   function populateSelect(data) {
     data.forEach((item) => {
       const option = document.createElement("option");
-      option.value = item.id_genero_musical; // Ajusta esto según la estructura de tu objeto de la API
-      option.textContent = item.nombre; // Ajusta esto según la estructura de tu objeto de la API
+      option.value = item.id_genero_musical;
+      option.textContent = item.nombre; 
       selectElement.appendChild(option);
     });
   }
 
-  // Llamada a la API REST usando Axios
   axios
     .get(url + "generos_musicales/")
     .then((response) => {
@@ -306,20 +292,16 @@ d.addEventListener("DOMContentLoaded", function () {
 });
 
 d.addEventListener("DOMContentLoaded", function () {
-  // Referencia al elemento select
   const selectElement = document.getElementById("artista-select");
-
-  // Función para poblar el select con opciones
   function populateSelect(data) {
     data.forEach((item) => {
       const option = document.createElement("option");
-      option.value = item.id_artista; // Ajusta esto según la estructura de tu objeto de la API
-      option.textContent = item.nombre; // Ajusta esto según la estructura de tu objeto de la API
+      option.value = item.id_artista;
+      option.textContent = item.nombre;
       selectElement.appendChild(option);
     });
   }
 
-  // Llamada a la API REST usando Axios
   axios
     .get(url + "artistas/")
     .then((response) => {
