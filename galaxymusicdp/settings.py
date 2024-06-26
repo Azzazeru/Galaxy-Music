@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
     'client', 'api',
 ]
 
@@ -85,18 +84,15 @@ WSGI_APPLICATION = 'galaxymusicdp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-# print(os.getenv('DATABASE_URL'))
-
 
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / "db.sqlite3",
-#     }
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / "db.sqlite3",
+    # }
 # }
 
 
@@ -154,17 +150,4 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['http://*', 'https://gmad.up.railway.app']
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True  # Si necesitas permitir credenciales en las solicitudes CORS
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#     ],
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',
-#     ],
-# }
-
-LOGIN_REDIRECT_URL = '/api/'
-
+CORS_ALLOW_CREDENTIALS = True

@@ -1,61 +1,16 @@
 from rest_framework import viewsets
 
-from rest_framework.response import Response
-from rest_framework.decorators import api_view , authentication_classes, permission_classes
-from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated , AllowAny, IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
-from rest_framework import status
-
-
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import authenticate, login, logout
-
-
 from .models import *
 from .serializer import *
 
-from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+from rest_framework import status
 
-from rest_framework.reverse import reverse
-
-
-#.ReadOnlyModelViewSet
-class SelloDiscograficoViewSet(viewsets.ModelViewSet):
-    queryset = SelloDiscografico.objects.all()
-    serializer_class = SelloDiscograficoSerializer
-
-class GeneroMusicalViewSet(viewsets.ModelViewSet):
-    queryset = GeneroMusical.objects.all()
-    serializer_class = GeneroMusicalSerializer
-
-class ArtistaViewSet(viewsets.ModelViewSet):
-    queryset = Artista.objects.all()
-    serializer_class = ArtistaSerializer
-
-class DetalleDiscoViewSet(viewsets.ModelViewSet):
-    queryset = DetalleDisco.objects.all()
-    serializer_class = DetalleDiscoSerializer
-
-class CancionViewSet(viewsets.ModelViewSet):
-    queryset = Cancion.objects.all()
-    serializer_class = CancionSerializer
 
 class DiscoViewSet(viewsets.ModelViewSet):
     queryset = Disco.objects.all()
     serializer_class = DiscoSerializer
-
-class TipoInstrumentoViewSet(viewsets.ModelViewSet):
-    queryset = TipoInstrumento.objects.all()
-    serializer_class = TipoInstrumentoSerializer
-
-class MarcaViewSet(viewsets.ModelViewSet):
-    queryset = Marca.objects.all()
-    serializer_class = MarcaSerializer
-
-class DetalleInstrumentoViewSet(viewsets.ModelViewSet):
-    queryset = DetalleInstrumento.objects.all()
-    serializer_class = DetalleInstrumentoSerializer
 
 class InstrumentoViewSet(viewsets.ModelViewSet):
     queryset = Instrumento.objects.all()
@@ -65,55 +20,48 @@ class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
 
-# @api_view(['GET'])
-'''@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-class ProductoViewSet(viewsets.ModelViewSet):
-    queryset = Producto.objects.all()
-    serializer_class = ProductoSerializer
+class UsuarioViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
 
-    def get_queryset(self):
-        user = self.request.user
-        return Producto.objects.filter(owner=user)'''
-    
-# @api_view(['POST'])
-# def login(request):
+#Aparte
 
-#     user = get_object_or_404(User, username=request.data['username'])
+class ArtistaViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Artista.objects.all()
+    serializer_class = ArtistaSerializer
 
-#     if not user.check_password(request.data['password']):
-#         return Response({"Error": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
-    
-#     token, created = Token.objects.get_or_create(user=user)
-#     serializer = UserSerializer(instance=user)
+class SelloDiscograficoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = SelloDiscografico.objects.all()
+    serializer_class = SelloDiscograficoSerializer
 
-#     return Response({"Token": token.key, "User": serializer.data}, status=status.HTTP_200_OK)
+class GeneroMusicalViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = GeneroMusical.objects.all()
+    serializer_class = GeneroMusicalSerializer
 
+class TipoDiscoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = TipoDisco.objects.all()
+    serializer_class = TipoDiscoSerializer
 
-# @api_view(['POST'])
-# def register(request):
+class PresupuestoViewSet(viewsets.ModelViewSet):
+    queryset = Presupuesto.objects.all()
+    serializer_class = PresupuestoSerializer
 
-#     serializer = UserSerializer(data=request.data)
+class TipoInstrumentoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = TipoInstrumento.objects.all()
+    serializer_class = TipoInstrumentoSerializer
 
-#     if serializer.is_valid():
-#         serializer.save()
+class EspecieInstrumentoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = EspecieInstrumento.objects.all()
+    serializer_class = EspecieInstrumentoSerializer
 
-#         user = User.objects.get(username=serializer.data['username'])
-#         user.set_password(serializer.data['password'])
-#         user.save()
+class MarcaInstrumentoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = MarcaInstrumento.objects.all()
+    serializer_class = MarcaInstrumentoSerializer
 
-#         token = Token.objects.create(user=user)
-#         return Response({'token': token.key, "user":serializer.data}, status=status.HTTP_201_CREATED)
+class BoletaViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Boleta.objects.all()
+    serializer_class = BoletaSerializer
 
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['POST'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-# def profile(request):
-
-#     # print(request.user)
-#     serializer = UserSerializer(instance = request.user)
-
-#     # return Response("You are login with {}".format(request.user.username), status=status.HTTP_200_OK)
-#     return Response(serializer.data, status=status.HTTP_200_OK)
+class DetalleBoletaViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = DetalleBoleta.objects.all()
+    serializer_class = DetalleBoletaSerializer

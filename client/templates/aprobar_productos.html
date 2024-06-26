@@ -12,13 +12,14 @@
         <section class="crud">
             <article>
                 <h2 class="text-center">Productos</h2>
+                <h2 class="text-center">Presupuesto: <span id="presupuesto"></span>$ (CLP)</h2>
                 <table class="table crud-table" id="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Estado</th>
                             <th>Instrumento / Disco</th>
                             <th>Modelo / Titulo</th>
+                            <th>Precio</th>
                             <form action="" class="crud-form">
                                 <input type="hidden" name="id">
                             </form>
@@ -28,10 +29,10 @@
                 </table>
                 <template id="template">
                     <tr>
-                        <td class="id"></td>
                         <td class="estado"></td>
                         <td class="instrumento-disco"></td>
                         <td class="modelo-titulo"></td>
+                        <td class="precio"></td>
                         <td>
                             <button class="btn btn-warning check">Aprobar</button>
                         </td>

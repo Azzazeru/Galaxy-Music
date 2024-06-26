@@ -69,6 +69,18 @@ canvas {
     margin: 10px
 }
 
+.cols-2 {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.cols-2 figure {
+    width: 45%;
+    /* Ajusta el ancho según sea necesario */
+}
+
 
 @media (max-width: 800px) {
 

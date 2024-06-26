@@ -1,5 +1,9 @@
-const url = "https://gmad.up.railway.app/api/productos"
+const url = "https://gmad.up.railway.app/api/productos/"
+const urlboleta = "https://gmad.up.railway.app/api/boleta/"
+const urldetalleboleta = "https://gmad.up.railway.app/api/detalleboleta/"
 // const url = "http://127.0.0.1:8000/api/productos/"
+// const urlboleta = "http://127.0.0.1:8000/api/boleta/"
+// const urldetalleboleta = "http://127.0.0.1:8000/api/detalleboleta/"
 
 Chart.defaults.color = "#FFFFFF";
 Chart.defaults.borderColor = "#444";
@@ -13,38 +17,32 @@ const fetchProductsData = (...urls) => {
 
 const getDataColors = (opacity) => {
   const colors = [
-    "#7448c2",
-    "#21c0d7",
-    "#d99e2b",
-    "#cd3a81",
-    "#9c99cc",
-    "#e14eca",
-    "#ffffff",
-    "#ff0000",
-    "#d6ff00",
-    "#0038ff",
+    "#7448c2","#21c0d7","#d99e2b","#cd3a81","#9c99cc","#e14eca","#ffffff","#ff0000","#d6ff00","#0038ff","#f57c00","#8e24aa","#616161","#ff6e40","#1de9b6","#fdd835","#8d6e63",
+    "#f06292","#90a4ae","#689f38","#7b1fa2","#ef6c00", "#9e9e9e","#3f51b5","#c2185b","#009688","#ffeb3b","#757575","#673ab7","#ff5722","#607d8b","#4caf50",
+    "#ff9800","#795548","#2196f3","#f44336","#00bcd4","#ffc107","#9c27b0","#8bc34a","#e91e63","#cddc39","#03a9f4","#ff4081","#4db6ac","#ffeb3b","#ff5252","#8bc34a",
   ];
-  return colors.map((color) => (opacity ? `${color + opacity}` : color));
+  
+  return colors.map((color) => (opacity ? `${color}${opacity}` : color));
 };
 
+
 const printCharts = () => {
-  fetchProductsData(url).then(
-    ([allProducts]) => {
+  fetchProductsData(url, urlboleta, urldetalleboleta).then(
+    ([allProducts, boletas, detalles]) => {
       renderModelsChart(allProducts);
-      renderFeaturesChart(allProducts);    
+      renderDiskChart(allProducts);
+      renderInstrumentChart(allProducts);
+      renderFeaturesChart(allProducts);
+      renderMonthlySalesChart(boletas);
+      renderAnnualSalesChart(boletas);
+      renderSalesChart(allProducts, boletas, detalles);
+      renderGenresChart(allProducts);
       enableEventHandlers(allProducts);
     }
 
   );
 
   renderModelsChart();
-};
-
-const updateChartData = (chartId, data, label) => {
-  const chart = Chart.getChart(chartId);
-  chart.data.datasets[0].data = data;
-  chart.data.datasets[0].label = label;
-  chart.update();
 };
 
 const enableEventHandlers = products => {
@@ -62,13 +60,12 @@ const enableEventHandlers = products => {
   };
 };
 
-
 const renderModelsChart = (products) => {
   const productMap = products.reduce((acc, product) => {
     let productName;
     if (product.instrumento) {
       productName =
-        product.instrumento.detalle_instrumento.tipo_instrumento.tipo +
+        product.instrumento.especie +
         " " +
         product.instrumento.modelo;
     } else if (product.disco) {
@@ -108,6 +105,89 @@ const renderModelsChart = (products) => {
   new Chart("modelsChart", { type: "doughnut", data, options });
 };
 
+const renderDiskChart = (products) => {
+  const productMap = products.reduce((acc, product) => {
+    let productName;
+    if (product.disco) {
+      productName = "Disco " + product.disco.titulo;
+    }
+
+    if (productName) {
+      if (!acc[productName]) {
+        acc[productName] = { stock: 0 };
+      }
+      acc[productName].stock += product.stock;
+    }
+
+    return acc;
+  }, {});
+
+  const uniqueProducts = Object.keys(productMap);
+  const stocks = uniqueProducts.map((product) => productMap[product].stock);
+
+  const data = {
+    labels: uniqueProducts,
+    datasets: [
+      {
+        data: stocks,
+        borderColor: getDataColors(),
+        backgroundColor: getDataColors(20),
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: { position: "left" },
+    },
+  };
+
+  new Chart("diskChart", { type: "doughnut", data, options });
+};
+
+const renderInstrumentChart = (products) => {
+  const productMap = products.reduce((acc, product) => {
+    let productName;
+    if (product.instrumento) {
+      productName =
+        product.instrumento.especie +
+        " " +
+        product.instrumento.modelo;
+    }
+
+    if (productName) {
+      if (!acc[productName]) {
+        acc[productName] = { stock: 0 };
+      }
+      acc[productName].stock += product.stock;
+    }
+
+    return acc;
+  }, {});
+
+  const uniqueProducts = Object.keys(productMap);
+  const stocks = uniqueProducts.map((product) => productMap[product].stock);
+
+  const data = {
+    labels: uniqueProducts,
+    datasets: [
+      {
+        data: stocks,
+        borderColor: getDataColors(),
+        backgroundColor: getDataColors(20),
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: { position: "left" },
+    },
+  };
+
+  new Chart("instrumentChart", { type: "doughnut", data, options });
+};
+
 const renderFeaturesChart = products => {
 
   const data = {
@@ -137,5 +217,328 @@ const renderFeaturesChart = products => {
 
   new Chart('featuresChart', { type: 'radar', data, options})
 }
+
+const updateChartData = (chartId, data, label) => {
+  const chart = Chart.getChart(chartId);
+  chart.data.datasets[0].data = data;
+  chart.data.datasets[0].label = label;
+  chart.update();
+};
+
+const renderMonthlySalesChart = boletas => {
+  const monthlySales = Array(12).fill(0);
+  const monthlyRevenue = Array(12).fill(0);
+
+  boletas.forEach(boleta => {
+    const month = new Date(boleta.fecha_venta).getMonth();
+    monthlySales[month]++;
+    monthlyRevenue[month] += boleta.total;
+  });
+
+  const labels = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Ventas",
+        data: monthlySales,
+        borderColor: getDataColors()[0],
+        backgroundColor: getDataColors(20)[0],
+        yAxisID: 'y1',
+      },
+      {
+        label: "Ganancias",
+        data: monthlyRevenue,
+        borderColor: getDataColors()[1],
+        backgroundColor: getDataColors(20)[1],
+        yAxisID: 'y2',
+      }
+    ]
+  };
+
+  const options = {
+    plugins: {
+      legend: { position: "top" },
+    },
+    scales: {
+      y1: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Número de Ventas',
+        },
+      },
+      y2: {
+        type: 'linear',
+        position: 'right',
+        title: {
+          display: true,
+          text: 'Ganancias Totales ($)',
+        },
+        grid: {
+          drawOnChartArea: false,
+        },
+      }
+    }
+  };
+
+  new Chart('salesChart', { type: 'line', data, options });
+}
+
+const renderAnnualSalesChart = boletas => {
+  const annualSales = {};
+  const annualRevenue = {};
+
+  boletas.forEach(boleta => {
+    const year = new Date(boleta.fecha_venta).getFullYear();
+    if (!annualSales[year]) {
+      annualSales[year] = 0;
+      annualRevenue[year] = 0;
+    }
+    annualSales[year]++;
+    annualRevenue[year] += boleta.total;
+  });
+
+  const labels = Object.keys(annualSales);
+  const salesData = Object.values(annualSales);
+  const revenueData = Object.values(annualRevenue);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Ventas",
+        data: salesData,
+        backgroundColor: getDataColors(20)[0],
+        borderColor: getDataColors()[0],
+        borderWidth: 1,
+        yAxisID: 'y1'
+      },
+      {
+        label: "Ganancias",
+        data: revenueData,
+        backgroundColor: getDataColors(20)[1],
+        borderColor: getDataColors()[1],
+        borderWidth: 1,
+        yAxisID: 'y2'
+      }
+    ]
+  };
+
+  const options = {
+    plugins: {
+      legend: { position: "top" }
+    },
+    scales: {
+      y1: {
+        beginAtZero: true,
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Número de Ventas'
+        },
+        grid: {
+          drawOnChartArea: false
+        }
+      },
+      y2: {
+        beginAtZero: true,
+        type: 'linear',
+        position: 'right',
+        title: {
+          display: true,
+          text: 'Ganancias Totales ($)'
+        },
+        grid: {
+          drawOnChartArea: false
+        }
+      }
+    }
+  };
+
+  new Chart('annualSalesChart', { type: 'bar', data, options });
+}
+
+const getSalesData = (allProducts, boletas, detalles) => {
+  // Contador de ventas por producto
+  const salesCount = {};
+
+  detalles.forEach(detalle => {
+    const productId = detalle.producto.toString();
+    if (salesCount[productId]) {
+      salesCount[productId] += detalle.cantidad;
+    } else {
+      salesCount[productId] = detalle.cantidad;
+    }
+  });
+
+  // Ordenar productos por cantidad vendida (más vendidos primero)
+  const sortedProducts = Object.keys(salesCount).sort((a, b) => salesCount[b] - salesCount[a]);
+
+  // Obtener los productos más vendidos (producto 1, 8, 4, 2, 3)
+  const mostSoldProducts = sortedProducts.slice(0, 5); // Obtener los 5 más vendidos
+
+  // Obtener los productos menos vendidos (producto 5, 6, 7, 9, 10)
+  const leastSoldProducts = sortedProducts.slice(-5); // Obtener los 5 menos vendidos
+
+  // Obtener detalles de productos más vendidos y menos vendidos
+  const mostSoldProductsData = mostSoldProducts.map(productId => {
+    const productInfo = allProducts.find(product => product.id_producto.toString() === productId);
+    const productName = productInfo.disco ? productInfo.disco.titulo : productInfo.instrumento.modelo;
+    return {
+      id: productId,
+      name: productName,
+      quantity: salesCount[productId]
+    };
+  });
+
+  const leastSoldProductsData = leastSoldProducts.map(productId => {
+    const productInfo = allProducts.find(product => product.id_producto.toString() === productId);
+    const productName = productInfo.disco ? productInfo.disco.titulo : productInfo.instrumento.modelo;
+    return {
+      id: productId,
+      name: productName,
+      quantity: salesCount[productId]
+    };
+  });
+
+  return {
+    mostSoldProductsData,
+    leastSoldProductsData
+  };
+};
+
+// Función para obtener el nombre del producto a mostrar
+const getProductDisplayName = (product, allProducts) => {
+  const productInfo = allProducts.find(p => p.id_producto.toString() === product.id);
+  if (productInfo) {
+    if (productInfo.disco) {
+      return `Disco ${productInfo.disco.titulo}`;
+    } else if (productInfo.instrumento) {
+      return `${productInfo.instrumento.especie} ${productInfo.instrumento.modelo}`;
+    }
+  }
+  return `Producto ${product.id}`;
+};
+
+// Función para renderizar el gráfico de ventas más y menos vendidos
+const renderSalesChart = (allProducts, boletas, detalles) => {
+  const { mostSoldProductsData, leastSoldProductsData } = getSalesData(allProducts, boletas, detalles);
+
+  // Preparar nombres y cantidades de productos más vendidos y menos vendidos
+  const mostSoldProductsNames = mostSoldProductsData.map(product => getProductDisplayName(product, allProducts));
+  const mostSoldProductsQuantities = mostSoldProductsData.map(product => product.quantity);
+
+  const leastSoldProductsNames = leastSoldProductsData.map(product => getProductDisplayName(product, allProducts));
+  const leastSoldProductsQuantities = leastSoldProductsData.map(product => product.quantity);
+
+  // Configurar datos y opciones para Chart.js
+  const data = {
+    labels: [...mostSoldProductsNames, ...leastSoldProductsNames],
+    datasets: [
+      {
+        label: 'Más Vendidos',
+        data: [...mostSoldProductsQuantities, ...Array(5).fill(0)], // Asegura que haya 5 barras aunque falten datos
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      },
+      {
+        label: 'Menos Vendidos',
+        data: [...Array(5).fill(0), ...leastSoldProductsQuantities], // Asegura que haya 5 barras aunque falten datos
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }
+    ]
+  };
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+
+  // Renderizar gráfico en el canvas
+  const ctx = document.getElementById('morelessSalesChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+};
+
+// Función para obtener los datos de géneros de discos
+const getGenresData = (allProducts) => {
+  // Contador de cantidad por género
+  const genreCount = {};
+
+  allProducts.forEach(product => {
+    if (product.disco) {
+      const genre = product.disco.genero_musical;
+      if (genreCount[genre]) {
+        genreCount[genre] += 1;
+      } else {
+        genreCount[genre] = 1;
+      }
+    }
+  });
+
+  // Obtener etiquetas y datos para el gráfico
+  const genres = Object.keys(genreCount);
+  const data = Object.values(genreCount);
+
+  return {
+    genres,
+    data
+  };
+};
+
+// Función para renderizar el gráfico de géneros de discos
+const renderGenresChart = (allProducts) => {
+  const { genres, data } = getGenresData(allProducts);
+  const colors = getDataColors(); // Obtener colores para los datos
+
+  // Configurar datos y opciones para Chart.js
+  const config = {
+    type: 'doughnut',
+    data: {
+      labels: genres,
+      datasets: [{
+        label: 'Géneros de Discos',
+        data: data,
+        borderColor: getDataColors(),
+        backgroundColor: getDataColors(20),
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Géneros de Discos'
+        }
+      }
+    }
+  };
+
+  // Renderizar gráfico en el canvas
+  const ctx = document.getElementById('genreDiskChart').getContext('2d');
+  new Chart(ctx, config);
+};
+
+
+
 
 printCharts();

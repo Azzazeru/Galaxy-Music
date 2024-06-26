@@ -21,8 +21,13 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <select name="especie" class="form-control" id="especie-select" required>
+                            <option value="" disabled selected>Seleccione Especie</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <select name="marca" class="form-control" id="marca-select" required>
-                            <option value="" disabled selected>Marca</option>
+                            <option value="" disabled selected>Seleccione Marca</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -36,19 +41,32 @@
                     </div>
                     <input class="btn btn-success w-100" type="submit" value="Enviar">
                     <input type="hidden" name="id">
-                    <input type="hidden" name="id_detalle_instrumento">
                     <input type="hidden" name="id_producto">
                 </form>
             </section>
             <div class="col-md-1"></div> 
             <section class="col-md-7 lista mt-3 overflow-auto">
                 <h2 class="text-center text-white">Lista de Instrumentos</h2>
+                <div class="filters">
+                    <h4 class="text-center">Filtros</h4>
+                    <div class="form-group">
+                        <label for="filtroTipo">Filtro Tipo Instrumento:</label>
+                        <select id="filtroTipo" class="form-control">
+                            <option value="">Todos los Tipo Instrumento</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroEspecie">Filtro Especie Instrumento:</label>
+                        <select id="filtroEspecie" class="form-control">
+                            <option value="">Todos los Especie Instrumento</option>
+                        </select>
+                    </div>
                 <table class="table crud-table" id="instrumentos-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Modelo</th>
                             <th>Tipo de Instrumento</th>
+                            <th>Especie</th>
                             <th>Marca</th>
                             <th>Descripción</th>
                             <th>Precio</th>
@@ -59,9 +77,9 @@
                 </table>
                 <template id="instrumento-template">
                     <tr>
-                        <td class="id"></td>
                         <td class="modelo"></td>
                         <td class="tipo_instrumento"></td>
+                        <td class="especie"></td>
                         <td class="marca"></td>
                         <td class="descripcion"></td>
                         <td class="precio"></td>

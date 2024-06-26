@@ -32,6 +32,14 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <select name="tipodisco" class="form-control" id="tipodisco-select" required>
+                            <option value="" disabled selected>Tipo Disco</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" name="fecha" class="form-control" placeholder="Fecha Lanzamiento" required>
+                    </div>
+                    <div class="mb-3">
                         <input type="number" name="precio" class="form-control" placeholder="Precio" required>
                     </div>
                     <div class="mb-3">
@@ -46,14 +54,46 @@
             <div class="col-md-1"></div> <!-- Espacio de separación -->
             <section class="col-md-7 lista mt-3 overflow-auto"> <!-- Clase overflow-auto para el scrollbar -->
                 <h2 class="text-center text-white">Lista de Discos</h2>
+                <div class="filters">
+                    <h4 class="text-center">Filtros</h4>
+                    <div class="form-group">
+                        <label for="filtroSello">Filtro Sello:</label>
+                        <select id="filtroSello" class="form-control">
+                            <option value="">Todos los Sellos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroGenero">Filtro Género:</label>
+                        <select id="filtroGenero" class="form-control">
+                            <option value="">Todos los géneros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroArtista">Filtro Artista:</label>
+                        <select id="filtroArtista" class="form-control">
+                            <option value="">Todos los Artistas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroTipo">Filtro Tipo de Disco:</label>
+                        <select id="filtroTipo" class="form-control">
+                            <option value="">Todos los Tipos de Discos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroFecha">Filtro Fecha de Lanzamiento:</label>
+                        <input type="date" id="filtroFecha" class="form-control">
+                    </div>
+                </div>
                 <table class="table crud-table" id="discos-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Titulo</th>
                             <th>Sello Discográfico</th>
                             <th>Género Musical</th>
                             <th>Artista</th>
+                            <th>Tipo Disco</th>
+                            <th>Fecha Lanzamiento</th>
                             <th>Precio</th>
                             <th>Stock</th>
                         </tr>
@@ -62,11 +102,12 @@
                 </table>
                 <template id="disco-template">
                     <tr>
-                        <td class="id"></td>
                         <td class="titulo"></td>
                         <td class="sello"></td>
                         <td class="genero"></td>
                         <td class="artista"></td>
+                        <td class="tipodisco"></td>
+                        <td class="fecha"></td>
                         <td class="precio"></td>
                         <td class="stock"></td>
                         <td>
