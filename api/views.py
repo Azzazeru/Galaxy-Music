@@ -3,10 +3,6 @@ from rest_framework import viewsets
 from .models import *
 from .serializer import *
 
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.response import Response
-from rest_framework import status
-
 
 class DiscoViewSet(viewsets.ModelViewSet):
     queryset = Disco.objects.all()
