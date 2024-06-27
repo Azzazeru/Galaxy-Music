@@ -1,5 +1,7 @@
-const url = "https://gmad.up.railway.app/api/"
-// const url = "http://127.0.0.1:8000/api/"
+const url = "https://gmad.up.railway.app/api/hidden/"
+const urls = "https://gmad.up.railway.app/api/public/"
+// const url = "http://127.0.0.1:8000/api/hidden/"
+// const urls = "http://127.0.0.1:8000/api/public/"
 
 const d = document,
   $title = d.querySelector('.crud-title'),
@@ -7,6 +9,8 @@ const d = document,
   $instrumentoTemplate = d.getElementById("instrumento-template").content,
   $instrumentoFragment = d.createDocumentFragment(),
   $instrumentoForm = d.querySelector(".crud-form");
+
+  csrftoken = d.querySelector('[name=csrfmiddlewaretoken]').value;
 
   $filtroTipo = d.getElementById("filtroTipo"),
   $filtroEspecie = d.getElementById("filtroEspecie")
@@ -58,9 +62,6 @@ const renderizarInstrumentos = (instrumentos) => {
   $instrumentosTable.appendChild($instrumentoFragment);
 }
 
-
-console.log("Holi")
-
 const aplicarFiltros = () => {
   const tipoSeleccionado = $filtroTipo.value.toLowerCase();
   const especieSeleccionada = $filtroEspecie.value.toLowerCase();
@@ -91,7 +92,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "POST",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             modelo: e.target.modelo.value,
@@ -114,7 +116,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "POST",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             instrumento_id: lastId,
@@ -131,38 +134,19 @@ d.addEventListener("submit", async e => {
         console.error(error);
       }
     } else {
-
       try {
         let options = {
           method: "PUT",
           headers: {
-            "content-type": "application/json;charset=utf-8"
-          },
-          data: JSON.stringify({
-            tipo_instrumento_id: e.target.tipo_instrumento.value,
-            marca_id: e.target.marca.value,
-            descripcion: e.target.descripcion.value,
-          })
-        }
-        let res = await axios(url + `detalles_instrumentos/${e.target.id_detalle_instrumento.value}/`, options);
-        let json = await res.data;
-
-      } catch (error) {
-        console.error(error);
-      }
-
-      try {
-        let res = await axios(url + "instrumentos/");
-        let json = await res.data;
-
-        let options = {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             modelo: e.target.modelo.value,
-            detalle_instrumento_id: e.target.id_detalle_instrumento.value
+            tipo_instrumento: e.target.tipo_instrumento.value,
+            especie: e.target.especie.value,
+            marca: e.target.marca.value,
+            descripcion: e.target.descripcion.value,
           })
         }
         res = await axios(url + `instrumentos/${e.target.id.value}/`, options);
@@ -178,7 +162,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "PUT",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             instrumento_id: e.target.id.value,
@@ -221,7 +206,8 @@ d.addEventListener("click", async e => {
         let options = {
           method: "DELETE",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
         }
         res = await axios(url + `instrumentos/${e.target.dataset.id}/`, options);
@@ -247,7 +233,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "tipoinstrumento/")
+    .get(urls + "tipoinstrumento/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -269,7 +255,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "especieinstrumento/")
+    .get(urls + "especieinstrumento/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -291,7 +277,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "marcainstrumento/")
+    .get(urls + "marcainstrumento/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -316,7 +302,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "especieinstrumento/")
+    .get(urls + "especieinstrumento/")
     .then((response) => {
       populateSelect(selectElementEspecie, response.data, 'especie', 'especie');
     })
@@ -325,7 +311,7 @@ d.addEventListener("DOMContentLoaded", function () {
     });
 
   axios
-    .get(url + "tipoinstrumento/")
+    .get(urls + "tipoinstrumento/")
     .then((response) => {
       populateSelect(selectElementTipo, response.data, 'tipo', 'tipo');
     })

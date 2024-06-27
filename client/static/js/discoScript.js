@@ -1,5 +1,7 @@
-const url = "https://gmad.up.railway.app/api/"
-// const url = "http://127.0.0.1:8000/api/"
+const url = "https://gmad.up.railway.app/api/hidden/"
+const urls = "https://gmad.up.railway.app/api/public/"
+// const url = "http://127.0.0.1:8000/api/hidden/"
+// const urls = "http://127.0.0.1:8000/api/public/"
 
 const d = document,
   $title = d.querySelector('.crud-title'),
@@ -8,12 +10,15 @@ const d = document,
   $discoFragment = d.createDocumentFragment();
   $discoForm = d.querySelector(".crud-form");
 
+  csrftoken = d.querySelector('[name=csrfmiddlewaretoken]').value;
+
   $filtroGenero = d.getElementById('filtroGenero'),
   $filtroArtista = d.getElementById('filtroArtista');
   $filtroTipo = d.getElementById('filtroTipo');
   $filtroFecha = d.getElementById('filtroFecha');
   $filtroSello = d.getElementById('filtroSello');
-
+  $filtroAnioDesde = d.getElementById('filtroAnioDesde');
+  $filtroAnioHasta = d.getElementById('filtroAnioHasta');
 
 const getAllDiscos = async () => {
   try {
@@ -63,37 +68,40 @@ const renderizarDiscos = (discos) => {
   $discosTable.appendChild($discoFragment);
 };
 
-// Función para aplicar los filtros
 const aplicarFiltros = () => {
   const generoSeleccionado = $filtroGenero.value.toLowerCase();
   const artistaSeleccionado = $filtroArtista.value.toLowerCase();
   const tipoSeleccionado = $filtroTipo.value.toLowerCase();
   const selloSeleccionado = $filtroSello.value.toLowerCase();
-  const añoSeleccionado = $filtroFecha.value ? new Date($filtroFecha.value).getFullYear() : '';
 
-  const discosFiltrados = discosData.filter(p => {
-    if (p.disco
-      && p.disco.genero_musical
-      && p.disco.artista
-      && p.disco.tipo_disco
-      && p.disco.sello_discografico
-    ) {
-      const cumpleGenero = generoSeleccionado === '' || p.disco.genero_musical.toLowerCase() === generoSeleccionado;
-      const cumpleArtista = artistaSeleccionado === '' || p.disco.artista.toLowerCase().includes(artistaSeleccionado);
-      const cumpleTipo = tipoSeleccionado === '' || p.disco.tipo_disco.toLowerCase() === tipoSeleccionado;
-      const cumpleSello = selloSeleccionado === '' || p.disco.sello_discografico.toLowerCase().includes(selloSeleccionado);
-      const cumpleFecha = añoSeleccionado === '' || new Date(p.disco.fecha_lanzamiento).getFullYear() === añoSeleccionado;
+  // Filtrar los discos basado en los criterios seleccionados
+  let discosFiltrados = discosData.filter(p => {
+      if (p.disco
+          && p.disco.genero_musical
+          && p.disco.artista
+          && p.disco.tipo_disco
+          && p.disco.sello_discografico
+          && p.disco.fecha_lanzamiento
+      ) {
+          const cumpleGenero = generoSeleccionado === '' || p.disco.genero_musical.toLowerCase() === generoSeleccionado;
+          const cumpleArtista = artistaSeleccionado === '' || p.disco.artista.toLowerCase().includes(artistaSeleccionado);
+          const cumpleTipo = tipoSeleccionado === '' || p.disco.tipo_disco.toLowerCase() === tipoSeleccionado;
+          const cumpleSello = selloSeleccionado === '' || p.disco.sello_discografico.toLowerCase().includes(selloSeleccionado);
 
-      return cumpleGenero && cumpleArtista && cumpleTipo && cumpleFecha && cumpleSello;
-    } else {
-      return false;
-    }
+          return cumpleGenero && cumpleArtista && cumpleTipo && cumpleSello;
+      } else {
+          return false;
+      }
   });
 
+  // Ordenar los discos por fecha de lanzamiento de manera descendente (los más recientes primero)
+  discosFiltrados.sort((a, b) => new Date(b.disco.fecha_lanzamiento) - new Date(a.disco.fecha_lanzamiento));
+
+  // Llamar a la función para renderizar los discos filtrados y ordenados
   renderizarDiscos(discosFiltrados);
 };
 
-$filtroFecha.addEventListener('change', aplicarFiltros);
+// Agregar event listeners para los filtros existentes
 $filtroGenero.addEventListener('change', aplicarFiltros);
 $filtroArtista.addEventListener('change', aplicarFiltros);
 $filtroTipo.addEventListener('change', aplicarFiltros);
@@ -110,7 +118,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "POST",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             titulo: e.target.titulo.value,
@@ -135,7 +144,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "POST",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             disco_id: lastId,
@@ -160,7 +170,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "PUT",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             titulo: e.target.titulo.value,
@@ -184,7 +195,8 @@ d.addEventListener("submit", async e => {
         let options = {
           method: "PUT",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
           data: JSON.stringify({
             disco_id: e.target.id.value,
@@ -228,7 +240,8 @@ d.addEventListener("click", async e => {
         let options = {
           method: "DELETE",
           headers: {
-            "content-type": "application/json;charset=utf-8"
+            "content-type": "application/json;charset=utf-8",
+            "X-CSRFToken": csrftoken
           },
         }
         res = await axios(url + `discos/${e.target.dataset.id}/`, options);
@@ -255,7 +268,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "sellos/")
+    .get(urls + "sellos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -277,7 +290,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "generos/")
+    .get(urls + "generos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -298,7 +311,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "artistas/")
+    .get(urls + "artistas/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -319,7 +332,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "tipodiscos/")
+    .get(urls + "tipodiscos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -343,7 +356,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "generos/")
+    .get(urls + "generos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -365,7 +378,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "artistas/")
+    .get(urls + "artistas/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -387,7 +400,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "tipodiscos/")
+    .get(urls + "tipodiscos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -409,7 +422,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "sellos/")
+    .get(urls + "sellos/")
     .then((response) => {
       populateSelect(response.data);
     })

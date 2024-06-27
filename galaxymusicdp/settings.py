@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -151,3 +151,6 @@ CSRF_TRUSTED_ORIGINS = ['http://*', 'https://gmad.up.railway.app']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+LOGIN_REDIRECT_URL = 'admin'
+LOGOUT_REDIRECT_URL = 'admin'

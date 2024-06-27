@@ -4,14 +4,22 @@
         <button class="navbar-toggler order-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'home' %}">Galaxy Music</a>
+        <a class="navbar-brand" href="{% url 'admin' %}">Galaxy Music</a>
         <div class="ms-3">
-            <a class="navbar-brand order-md-1" href="{% url 'home' %}"> 
-                <img  src="{% static 'images/logo.png' %}" alt="" width="50">
+            <a class="navbar-brand order-md-1" href="{% url 'admin' %}"> 
+                <img src="{% static 'images/logo.png' %}" alt="Galaxy Music Logo" width="50">
             </a>
-            
         </div>
-        
+        <div class="d-flex ms-auto">
+            {% if user.is_authenticated %}
+                <span class="navbar-text text-white me-3">
+                    Bienvenido, {{ user.username }}
+                </span>
+                <a class="btn btn-outline-light" href="{% url 'exit' %}">Cerrar Sesión</a>
+            {% else %}
+                <a class="btn btn-outline-light" href="{% url 'login' %}">Iniciar Sesión</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
 

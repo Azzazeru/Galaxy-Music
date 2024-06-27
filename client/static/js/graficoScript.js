@@ -1,9 +1,9 @@
-const url = "https://gmad.up.railway.app/api/productos/"
-const urlboleta = "https://gmad.up.railway.app/api/boleta/"
-const urldetalleboleta = "https://gmad.up.railway.app/api/detalleboleta/"
-// const url = "http://127.0.0.1:8000/api/productos/"
-// const urlboleta = "http://127.0.0.1:8000/api/boleta/"
-// const urldetalleboleta = "http://127.0.0.1:8000/api/detalleboleta/"
+const url = "https://gmad.up.railway.app/api/public/productos/"
+const urlboleta = "https://gmad.up.railway.app/api/public/boleta/"
+const urldetalleboleta = "https://gmad.up.railway.app/api/public/detalleboleta/"
+// const url = "http://127.0.0.1:8000/api/public/productos/"
+// const urlboleta = "http://127.0.0.1:8000/api/public/boleta/"
+// const urldetalleboleta = "http://127.0.0.1:8000/api/public/detalleboleta/"
 
 Chart.defaults.color = "#FFFFFF";
 Chart.defaults.borderColor = "#444";
@@ -24,7 +24,6 @@ const getDataColors = (opacity) => {
   
   return colors.map((color) => (opacity ? `${color}${opacity}` : color));
 };
-
 
 const printCharts = () => {
   fetchProductsData(url, urlboleta, urldetalleboleta).then(
@@ -61,6 +60,10 @@ const enableEventHandlers = products => {
 };
 
 const renderModelsChart = (products) => {
+  if (!Array.isArray(products) || products.length === 0) {
+    return;
+    // No se por que da error, pero da error en la consola, PERO NO AFECTA NEGATIVAMENTE AL CODIGO XD, y esto es para evitar ese error.
+  }
   const productMap = products.reduce((acc, product) => {
     let productName;
     if (product.instrumento) {
@@ -366,7 +369,6 @@ const renderAnnualSalesChart = boletas => {
 }
 
 const getSalesData = (allProducts, boletas, detalles) => {
-  // Contador de ventas por producto
   const salesCount = {};
 
   detalles.forEach(detalle => {
@@ -378,16 +380,12 @@ const getSalesData = (allProducts, boletas, detalles) => {
     }
   });
 
-  // Ordenar productos por cantidad vendida (más vendidos primero)
   const sortedProducts = Object.keys(salesCount).sort((a, b) => salesCount[b] - salesCount[a]);
 
-  // Obtener los productos más vendidos (producto 1, 8, 4, 2, 3)
-  const mostSoldProducts = sortedProducts.slice(0, 5); // Obtener los 5 más vendidos
+  const mostSoldProducts = sortedProducts.slice(0, 5);
 
-  // Obtener los productos menos vendidos (producto 5, 6, 7, 9, 10)
-  const leastSoldProducts = sortedProducts.slice(-5); // Obtener los 5 menos vendidos
+  const leastSoldProducts = sortedProducts.slice(-5);
 
-  // Obtener detalles de productos más vendidos y menos vendidos
   const mostSoldProductsData = mostSoldProducts.map(productId => {
     const productInfo = allProducts.find(product => product.id_producto.toString() === productId);
     const productName = productInfo.disco ? productInfo.disco.titulo : productInfo.instrumento.modelo;
@@ -414,7 +412,6 @@ const getSalesData = (allProducts, boletas, detalles) => {
   };
 };
 
-// Función para obtener el nombre del producto a mostrar
 const getProductDisplayName = (product, allProducts) => {
   const productInfo = allProducts.find(p => p.id_producto.toString() === product.id);
   if (productInfo) {
@@ -427,31 +424,28 @@ const getProductDisplayName = (product, allProducts) => {
   return `Producto ${product.id}`;
 };
 
-// Función para renderizar el gráfico de ventas más y menos vendidos
 const renderSalesChart = (allProducts, boletas, detalles) => {
   const { mostSoldProductsData, leastSoldProductsData } = getSalesData(allProducts, boletas, detalles);
 
-  // Preparar nombres y cantidades de productos más vendidos y menos vendidos
   const mostSoldProductsNames = mostSoldProductsData.map(product => getProductDisplayName(product, allProducts));
   const mostSoldProductsQuantities = mostSoldProductsData.map(product => product.quantity);
 
   const leastSoldProductsNames = leastSoldProductsData.map(product => getProductDisplayName(product, allProducts));
   const leastSoldProductsQuantities = leastSoldProductsData.map(product => product.quantity);
 
-  // Configurar datos y opciones para Chart.js
   const data = {
     labels: [...mostSoldProductsNames, ...leastSoldProductsNames],
     datasets: [
       {
         label: 'Más Vendidos',
-        data: [...mostSoldProductsQuantities, ...Array(5).fill(0)], // Asegura que haya 5 barras aunque falten datos
+        data: [...mostSoldProductsQuantities, ...Array(5).fill(0)],
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1
       },
       {
         label: 'Menos Vendidos',
-        data: [...Array(5).fill(0), ...leastSoldProductsQuantities], // Asegura que haya 5 barras aunque falten datos
+        data: [...Array(5).fill(0), ...leastSoldProductsQuantities],
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 1
@@ -467,7 +461,6 @@ const renderSalesChart = (allProducts, boletas, detalles) => {
     }
   };
 
-  // Renderizar gráfico en el canvas
   const ctx = document.getElementById('morelessSalesChart').getContext('2d');
   new Chart(ctx, {
     type: 'bar',
@@ -476,9 +469,7 @@ const renderSalesChart = (allProducts, boletas, detalles) => {
   });
 };
 
-// Función para obtener los datos de géneros de discos
 const getGenresData = (allProducts) => {
-  // Contador de cantidad por género
   const genreCount = {};
 
   allProducts.forEach(product => {
@@ -492,7 +483,6 @@ const getGenresData = (allProducts) => {
     }
   });
 
-  // Obtener etiquetas y datos para el gráfico
   const genres = Object.keys(genreCount);
   const data = Object.values(genreCount);
 
@@ -502,12 +492,10 @@ const getGenresData = (allProducts) => {
   };
 };
 
-// Función para renderizar el gráfico de géneros de discos
 const renderGenresChart = (allProducts) => {
   const { genres, data } = getGenresData(allProducts);
-  const colors = getDataColors(); // Obtener colores para los datos
+  const colors = getDataColors();
 
-  // Configurar datos y opciones para Chart.js
   const config = {
     type: 'doughnut',
     data: {
@@ -533,12 +521,8 @@ const renderGenresChart = (allProducts) => {
     }
   };
 
-  // Renderizar gráfico en el canvas
   const ctx = document.getElementById('genreDiskChart').getContext('2d');
   new Chart(ctx, config);
 };
-
-
-
 
 printCharts();

@@ -1,30 +1,30 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework import routers
 from .views import *
 
+public_router = routers.DefaultRouter()
+public_router.register(r'discos', DiscoReadViewSet)
+public_router.register(r'instrumentos', InstrumentoReadViewSet)
+public_router.register(r'productos', ProductoReadViewSet)
+public_router.register(r'artistas', ArtistaViewSet)
+public_router.register(r'sellos', SelloDiscograficoViewSet)
+public_router.register(r'generos', GeneroMusicalViewSet)
+public_router.register(r'tipodiscos', TipoDiscoViewSet)
+public_router.register(r'tipoinstrumento', TipoInstrumentoViewSet)
+public_router.register(r'especieinstrumento', EspecieInstrumentoViewSet)
+public_router.register(r'marcainstrumento', MarcaInstrumentoViewSet)
+public_router.register(r'boleta', BoletaViewSet)
+public_router.register(r'detalleboleta', DetalleBoletaViewSet)
+public_router.register(r'presupuesto', PresupuestoReadViewSet)
 
-
-router = DefaultRouter()
-router.register(r'discos', DiscoViewSet)
-router.register(r'instrumentos', InstrumentoViewSet)
-router.register(r'productos', ProductoViewSet)
-
-router.register(r'usuarios', UsuarioViewSet)
-router.register(r'artistas', ArtistaViewSet)
-router.register(r'sellos', SelloDiscograficoViewSet)
-router.register(r'generos', GeneroMusicalViewSet)
-router.register(r'tipodiscos', TipoDiscoViewSet)
-router.register(r'tipoinstrumento', TipoInstrumentoViewSet)
-router.register(r'especieinstrumento', EspecieInstrumentoViewSet)
-router.register(r'marcainstrumento', MarcaInstrumentoViewSet)
-
-router.register(r'boleta', BoletaViewSet)
-router.register(r'detalleboleta', DetalleBoletaViewSet)
-
-router.register(r'presupuesto', PresupuestoViewSet)
-
+hidden_router = routers.DefaultRouter()
+hidden_router.register(r'discos', DiscoViewSet)
+hidden_router.register(r'instrumentos', InstrumentoViewSet)
+hidden_router.register(r'productos', ProductoViewSet)
+hidden_router.register(r'presupuesto', PresupuestoViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-
+    path('hidden/', include(hidden_router.urls)),
+    path('public/', include(public_router.urls)),
 ]

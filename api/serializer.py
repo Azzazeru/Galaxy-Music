@@ -23,10 +23,10 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto
         fields = '__all__'
 
-class UsuarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuario
-        fields = '__all__'
+# class UsuarioSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Usuario
+#         fields = '__all__'
 
 ## Aparte
 

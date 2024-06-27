@@ -1,5 +1,5 @@
 const url = "https://gmad.up.railway.app/api/"
-// const url = "http://127.0.0.1:8000/api/"
+// const url = "http://127.0.0.1:8000/api/public/"
 
 const d = document,
     $discosTable = d.querySelector('#discos-table tbody'),
@@ -18,6 +18,7 @@ const getAll = async () => {
 
         json.forEach(p => {
             if (p.disco) {
+                console.log(p)
                 $discoTemplate.querySelector(".precio").textContent = p.precio;
                 $discoTemplate.querySelector(".stock").textContent = p.stock;
                 $discoTemplate.querySelector(".estado").textContent = p.estado ? "Aprobado" : "No Aprobado";

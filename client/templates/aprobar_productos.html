@@ -21,6 +21,7 @@
                             <th>Modelo / Titulo</th>
                             <th>Precio</th>
                             <form action="" class="crud-form">
+                                {% csrf_token %}
                                 <input type="hidden" name="id">
                             </form>
                         </tr>

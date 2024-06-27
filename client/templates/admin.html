@@ -13,7 +13,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-4">
-                                <img src="{% static 'images/disco3.webp' %}" class="img-fluid">
+                                <img src="{% static 'images/disco3.png' %}" class="img-fluid">
                             </div>
                             <div class="col-8 d-flex align-items-center">
                                 <h2>Discos</h2>
@@ -27,7 +27,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-4">
-                                <img src="{% static 'images/instrumento.webp' %}" class="img-fluid">
+                                <img src="{% static 'images/instrumento.png' %}" class="img-fluid">
                             </div>
                             <div class="col-8 d-flex align-items-center">
                                 <h2>Instrumentos</h2>
@@ -64,7 +64,21 @@
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-warning col-12 text-white mt-3" href="aprobar_productos">Administrar</a>
+                    <a class="btn btn-warning col-12 text-white mt-3" href="{% url 'aprobar_productos' %}">Administrar</a>
+                </article>
+
+                <article class="col-12 col-sm-6 col-md-4 col-lg-3 item mb-4 mx-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="{% static 'images/api.png' %}" class="img-fluid">
+                            </div>
+                            <div class="col-8 d-flex align-items-center">
+                                <h2>API</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-warning col-12 text-white mt-3" href="https://gmad.up.railway.app/api/public/">Ver Api</a>
                 </article>
             </div>
 

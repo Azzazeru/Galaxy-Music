@@ -12,6 +12,7 @@
             <section class="col-md-4 crud">
                 <h2 class="crud-title text-white">Agregar Instrumento</h2>
                 <form action="" class="crud-form">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <input type="text" name="modelo" class="form-control" placeholder="Modelo" required>
                     </div>

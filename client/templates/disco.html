@@ -13,6 +13,7 @@
             <section class="col-md-4 crud">
                 <h2 class="crud-title text-white">Agregar Disco</h2>
                 <form action="" class="crud-form">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <input type="text" name="titulo" class="form-control" placeholder="Titulo" required>
                     </div>
@@ -81,8 +82,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="filtroFecha">Filtro Fecha de Lanzamiento:</label>
-                        <input type="date" id="filtroFecha" class="form-control">
+                        <label for="filtroAnio">Filtrar por Año de Lanzamiento:</label>
+                        <button type="button" id="ascendente" class="btn btn-sm btn-secondary mr-1">Ascendente</button>
+                        <button type="button" id="descendente" class="btn btn-sm btn-secondary">Descendente</button>
                     </div>
                 </div>
                 <table class="table crud-table" id="discos-table">

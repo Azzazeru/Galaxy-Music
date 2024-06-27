@@ -39,10 +39,10 @@ class Producto(models.Model):
 
 # Usuario
 
-class Usuario(models.Model):
-    id_usuario = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
-    contrasenia = models.CharField(max_length=100)
+# class Usuario(models.Model):
+#     id_usuario = models.AutoField(primary_key=True)
+#     nombre = models.CharField(max_length=100)
+#     contrasenia = models.CharField(max_length=100)
 
 ## Aparte Disco
 

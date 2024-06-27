@@ -25,7 +25,9 @@ urlpatterns = [
     path('client/', include('client.urls') ),
     path('api/', include('api.urls')),
 
-    path('', RedirectView.as_view(url='/client/home')),
+    path('accounts/', include('django.contrib.auth.urls')),
+
+    path('', RedirectView.as_view(url='/client/admin')),
 
 
 ]
