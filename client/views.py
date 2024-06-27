@@ -5,7 +5,7 @@ from django.http import HttpResponseForbidden
 # Create your views here.
 
 def boss_required(user):
-    return user.username == 'jorgelagos123'
+    return user.username == 'jorgelagosboss'
 
 boss_required = user_passes_test(boss_required)
 
