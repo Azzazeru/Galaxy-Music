@@ -1,7 +1,106 @@
 import pytest
-from django.test import TestCase
+from django.test import TestCase , Client
 from api.models import *
+from django.contrib.auth.models import User
+import json
 
+
+
+# Tests api
+class TestAPIGET(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.username = 'jorgelagosboss'
+        self.password = 'jorgelagosboss12345'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        
+        self.client.login(username=self.username, password=self.password)
+        self.csrf_token = self.client.cookies['csrftoken'].value if 'csrftoken' in self.client.cookies else ''
+
+    def test_obtener_productos_api(self):
+        url = 'https://gmad.up.railway.app/api/hidden/productos/'
+
+        headers = {'X-CSRFToken': self.csrf_token}
+
+        response = self.client.get(url, **{'HTTP_X_CSRFTOKEN': self.csrf_token})
+
+        self.assertEqual(response.status_code, 200)
+        
+        productos = response.json()
+        self.assertTrue(isinstance(productos, list))
+
+# erclass TestAPIPOST(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.username = 'jorgelagosboss'
+#         self.password = 'jorgelagosboss12345'
+#         self.user = User.objects.create_user(username=self.username, password=self.password)
+        
+#         self.client.login(username=self.username, password=self.password)
+#         self.csrf_token = self.client.cookies['csrftoken'].value if 'csrftoken' in self.client.cookies else ''
+
+#     def test_crear_producto_api(self):
+#         url = 'https://gmad.up.railway.app/api/hidden/productos/'
+#         nuevo_producto = {
+#             "disco_id": 1,
+#             "instrumento_id": 1,
+#             "precio": 100,
+#             "stock": 10,
+#             "estado": True
+#         }
+        
+#         headers = {'X-CSRFToken': self.csrf_token, 'content-type': 'application/json'}
+        
+#         response = self.client.post(url, data=json.dumps(nuevo_producto), **headers)
+
+#         self.assertEqual(response.status_code, 201)
+
+# class TestAPIPUT(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.username = 'jorgelagosboss'
+#         self.password = 'jorgelagosboss12345'
+#         self.user = User.objects.create_user(username=self.username, password=self.password)
+        
+#         self.client.login(username=self.username, password=self.password)
+#         self.csrf_token = self.client.cookies['csrftoken'].value if 'csrftoken' in self.client.cookies else ''
+
+#     def test_actualizar_producto_api(self):
+#         producto_id = 1  # Ajusta con un ID válido existente en tu base de datos
+#         url = f'https://gmad.up.railway.app/api/hidden/productos/{producto_id}/'
+#         datos_actualizados = {
+#             "precio": 120,
+#             "stock": 8,
+#             "estado": False
+#         }
+
+#         headers = {'X-CSRFToken': self.csrf_token, 'content-type': 'application/json'}
+
+#         response = self.client.put(url, data=json.dumps(datos_actualizados), **headers)
+
+#         self.assertEqual(response.status_code, 200)
+
+# class TestAPIDELETE(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.username = 'jorgelagosboss'
+#         self.password = 'jorgelagosboss12345'
+#         self.user = User.objects.create_user(username=self.username, password=self.password)
+        
+#         self.client.login(username=self.username, password=self.password)
+#         self.csrf_token = self.client.cookies['csrftoken'].value if 'csrftoken' in self.client.cookies else ''
+
+#     def test_eliminar_producto_api(self):
+#         producto_id = 1  # Ajusta con un ID válido existente en tu base de datos
+#         url = f'https://gmad.up.railway.app/api/hidden/productos/{producto_id}/'
+
+#         headers = {'X-CSRFToken': self.csrf_token}
+
+#         response = self.client.delete(url, **headers)
+
+#         self.assertEqual(response.status_code, 204)
+
+# Test base de datos
 # Para disco
 
 @pytest.mark.django_db

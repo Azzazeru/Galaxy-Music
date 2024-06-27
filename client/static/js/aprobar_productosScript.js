@@ -1,4 +1,4 @@
-const url = "https://gmad.up.railway.app/api/public/"
+const url = "https://gmad.up.railway.app/api/hidden/"
 // const url = "http://127.0.0.1:8000/api/hidden/"
 
 const d = document,
