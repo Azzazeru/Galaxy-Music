@@ -52,7 +52,7 @@ body {
     background-color: rgba(49, 49, 49, 0.69);
     padding: 10px;
     border-radius: 10px;
-    max-height: 400px;
+    max-height: 600px;
     overflow-y: auto; 
 
 }

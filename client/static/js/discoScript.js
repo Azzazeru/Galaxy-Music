@@ -1,5 +1,5 @@
-const url = "https://gmad.up.railway.app/api/hidden/"
-const urls = "https://gmad.up.railway.app/api/public/"
+const url = "https://gmad.up.railway.app/api/public/"
+// const urls = "https://gmad.up.railway.app/api/public/"
 // const url = "http://127.0.0.1:8000/api/hidden/"
 // const urls = "http://127.0.0.1:8000/api/public/"
 
@@ -74,7 +74,6 @@ const aplicarFiltros = () => {
   const tipoSeleccionado = $filtroTipo.value.toLowerCase();
   const selloSeleccionado = $filtroSello.value.toLowerCase();
 
-  // Filtrar los discos basado en los criterios seleccionados
   let discosFiltrados = discosData.filter(p => {
       if (p.disco
           && p.disco.genero_musical
@@ -94,14 +93,11 @@ const aplicarFiltros = () => {
       }
   });
 
-  // Ordenar los discos por fecha de lanzamiento de manera descendente (los más recientes primero)
   discosFiltrados.sort((a, b) => new Date(b.disco.fecha_lanzamiento) - new Date(a.disco.fecha_lanzamiento));
 
-  // Llamar a la función para renderizar los discos filtrados y ordenados
   renderizarDiscos(discosFiltrados);
 };
 
-// Agregar event listeners para los filtros existentes
 $filtroGenero.addEventListener('change', aplicarFiltros);
 $filtroArtista.addEventListener('change', aplicarFiltros);
 $filtroTipo.addEventListener('change', aplicarFiltros);
@@ -268,7 +264,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "sellos/")
+    .get(url + "sellos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -290,7 +286,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "generos/")
+    .get(url + "generos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -311,7 +307,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "artistas/")
+    .get(url + "artistas/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -332,7 +328,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "tipodiscos/")
+    .get(url + "tipodiscos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -356,7 +352,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "generos/")
+    .get(url + "generos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -378,7 +374,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "artistas/")
+    .get(url + "artistas/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -400,7 +396,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "tipodiscos/")
+    .get(url + "tipodiscos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -422,7 +418,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(urls + "sellos/")
+    .get(url + "sellos/")
     .then((response) => {
       populateSelect(response.data);
     })
