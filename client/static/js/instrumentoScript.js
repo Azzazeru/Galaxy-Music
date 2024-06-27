@@ -1,5 +1,5 @@
-const url = "https://gmad.up.railway.app/api/public/"
-// const urls = "https://gmad.up.railway.app/api/public/"
+const url = "https://gmad.up.railway.app/api/hidden/"
+const urls = "https://gmad.up.railway.app/api/public/"
 // const url = "http://127.0.0.1:8000/api/hidden/"
 // const urls = "http://127.0.0.1:8000/api/public/"
 
@@ -233,7 +233,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "tipoinstrumento/")
+    .get(urls + "tipoinstrumento/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -255,7 +255,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "especieinstrumento/")
+    .get(urls + "especieinstrumento/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -277,7 +277,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "marcainstrumento/")
+    .get(urls + "marcainstrumento/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -302,7 +302,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "especieinstrumento/")
+    .get(urls + "especieinstrumento/")
     .then((response) => {
       populateSelect(selectElementEspecie, response.data, 'especie', 'especie');
     })
@@ -311,7 +311,7 @@ d.addEventListener("DOMContentLoaded", function () {
     });
 
   axios
-    .get(url + "tipoinstrumento/")
+    .get(urls + "tipoinstrumento/")
     .then((response) => {
       populateSelect(selectElementTipo, response.data, 'tipo', 'tipo');
     })

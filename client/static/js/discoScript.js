@@ -1,5 +1,5 @@
-const url = "https://gmad.up.railway.app/api/public/"
-// const urls = "https://gmad.up.railway.app/api/public/"
+const url = "https://gmad.up.railway.app/api/hidden/"
+const urls = "https://gmad.up.railway.app/api/public/"
 // const url = "http://127.0.0.1:8000/api/hidden/"
 // const urls = "http://127.0.0.1:8000/api/public/"
 
@@ -264,7 +264,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "sellos/")
+    .get(urls + "sellos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -286,7 +286,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "generos/")
+    .get(urls + "generos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -307,7 +307,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "artistas/")
+    .get(urls + "artistas/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -328,7 +328,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "tipodiscos/")
+    .get(urls + "tipodiscos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -352,7 +352,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "generos/")
+    .get(urls + "generos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -374,7 +374,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "artistas/")
+    .get(urls + "artistas/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -396,7 +396,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "tipodiscos/")
+    .get(urls + "tipodiscos/")
     .then((response) => {
       populateSelect(response.data);
     })
@@ -418,7 +418,7 @@ d.addEventListener("DOMContentLoaded", function () {
   }
 
   axios
-    .get(url + "sellos/")
+    .get(urls + "sellos/")
     .then((response) => {
       populateSelect(response.data);
     })

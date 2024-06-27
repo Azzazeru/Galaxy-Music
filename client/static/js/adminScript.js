@@ -18,7 +18,6 @@ const getAll = async () => {
 
         json.forEach(p => {
             if (p.disco) {
-                console.log(p)
                 $discoTemplate.querySelector(".precio").textContent = p.precio;
                 $discoTemplate.querySelector(".stock").textContent = p.stock;
                 $discoTemplate.querySelector(".estado").textContent = p.estado ? "Aprobado" : "No Aprobado";

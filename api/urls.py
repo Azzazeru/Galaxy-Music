@@ -15,13 +15,20 @@ public_router.register(r'marcainstrumento', MarcaInstrumentoViewSet)
 public_router.register(r'boleta', BoletaViewSet)
 public_router.register(r'detalleboleta', DetalleBoletaViewSet)
 
-public_router.register(r'presupuesto', PresupuestoViewSet)
-public_router.register(r'discos', DiscoViewSet)
-public_router.register(r'instrumentos', InstrumentoViewSet)
-public_router.register(r'productos', ProductoViewSet)
+public_router.register(r'presupuesto', PresupuestoReadViewSet)
+public_router.register(r'discos', DiscoReadViewSet)
+public_router.register(r'instrumentos', InstrumentoReadViewSet)
+public_router.register(r'productos', ProductoReadViewSet)
+
+hidden_router = routers.DefaultRouter()
+hidden_router.register(r'productos', ProductoViewSet)
+hidden_router.register(r'presupuesto', PresupuestoViewSet)
+hidden_router.register(r'discos', DiscoViewSet)
+hidden_router.register(r'instrumentos', InstrumentoViewSet)
 
 
 
 urlpatterns = [
+    path('hidden/', include(hidden_router.urls)),
     path('public/', include(public_router.urls)),
 ]
