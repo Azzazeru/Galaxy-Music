@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "828b4ba6-55b2-4724-8b1d-46d65e064683",
+		"name": "Productos API Coleccion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29544868"
+	},
+	"item": [
+		{
+			"name": "https://gmad.up.railway.app/api/hidden/productos/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "7WmUH85JT2lsCvvDocRw3xo4GxBcfRTn",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "r3nxy6x70x56ssr0zxhj7wh309x127fz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "jorgelagosboss",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jorgelagosboss12345",
+							"type": "text"
+						},
+						{
+							"key": "X-CSRFToken",
+							"value": "7WmUH85JT2lsCvvDocRw3xo4GxBcfRTn",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://gmad.up.railway.app/api/hidden/productos/",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"hidden",
+						"productos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://gmad.up.railway.app/api/hidden/productos/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "7WmUH85JT2lsCvvDocRw3xo4GxBcfRTn",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "r3nxy6x70x56ssr0zxhj7wh309x127fz",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://gmad.up.railway.app/api/hidden/productos/1",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"hidden",
+						"productos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://gmad.up.railway.app/api/hidden/productos/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "moS0bufcpzczBSDzh1PAcFUfApBmy8kD",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "r3nxy6x70x56ssr0zxhj7wh309x127fz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"instrumento_id\": 10,\r\n    \"precio\": 10000,\r\n    \"stock\": 25,\r\n    \"estado\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gmad.up.railway.app/api/hidden/productos/",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"hidden",
+						"productos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://gmad.up.railway.app/api/hidden/productos/23",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://gmad.up.railway.app/api/hidden/productos/23",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"hidden",
+						"productos",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://gmad.up.railway.app/api/hidden/productos/24/",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "moS0bufcpzczBSDzh1PAcFUfApBmy8kD",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"precio\": 25000,\r\n    \"stock\": 35\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gmad.up.railway.app/api/hidden/productos/24/",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"hidden",
+						"productos",
+						"24",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

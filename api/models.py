@@ -37,12 +37,10 @@ class Producto(models.Model):
     stock = models.PositiveIntegerField(default=0)
     estado = models.BooleanField(default=False)
 
-# Usuario
+    def __str__(self):
+        return f"Producto #{self.id_producto}"
 
-# class Usuario(models.Model):
-#     id_usuario = models.AutoField(primary_key=True)
-#     nombre = models.CharField(max_length=100)
-#     contrasenia = models.CharField(max_length=100)
+# Usuario
 
 ## Aparte Disco
 
@@ -73,29 +71,47 @@ class TipoDisco(models.Model):
     id_tipo_disco = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.nombre
+    
 ## Aparte Instrumento
 
 class TipoInstrumento(models.Model):
     id_tipo_instrumento = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.tipo 
+
 class EspecieInstrumento(models.Model):
     id_especie_instrumento = models.AutoField(primary_key=True)
     especie = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.especie
 
 class MarcaInstrumento(models.Model):
     id_marca_instrumento = models.AutoField(primary_key=True)
     marca = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.marca 
+
 class Presupuesto(models.Model):
     id_presupuesto = models.AutoField(primary_key=True)
     presupuesto = models.IntegerField()
+
+    def __str__(self):
+        return f"Presupuesto #{self.id_presupuesto}"
 
 class Boleta(models.Model):
     id_boleta = models.AutoField(primary_key=True)
     productos = models.ManyToManyField(Producto, through='DetalleBoleta')
     fecha_venta = models.DateField(auto_now_add=True)
     total = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"Boleta #{self.id_boleta}"
 
 class DetalleBoleta(models.Model):
     boleta = models.ForeignKey(Boleta, on_delete=models.CASCADE)

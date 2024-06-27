@@ -15,6 +15,7 @@ const d = document,
   $filtroTipo = d.getElementById("filtroTipo"),
   $filtroEspecie = d.getElementById("filtroEspecie")
 
+console.log(csrftoken)
 
 const getAllInstrumentos = async () => {
   try {
