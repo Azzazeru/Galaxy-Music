@@ -28,7 +28,7 @@ def render_instrumento(request):
 
 @boss_required
 def render_aprobar_productos(request):
-    if request.user.username != 'jorgelagos123':
+    if request.user.username != 'jorgelagosboss':
         return HttpResponseForbidden('Solo el jefe puede entrar aquí.')
     
     return render(request, 'aprobar_productos.html')
