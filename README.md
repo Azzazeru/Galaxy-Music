@@ -12,7 +12,8 @@ Base de Datos: PostgreSQL
 Instalacion:
 
 1.- Para una instalación limpia y efectiva, se recomienda el uso de Entornos Virtuales de Python:
-(python -m venv nombrentornovirtual)
+`python -m venv nombrentornovirtual`
+
 2.- Dentro de este ingresar los requirimientos de la pagina web:
 (pip install -r requirements.txt)
 3.- Configurar Base de Datos a utilizar en el archivo galaxymusicdp/settings.py
