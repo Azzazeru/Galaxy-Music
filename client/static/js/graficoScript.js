@@ -1,6 +1,6 @@
 const url = "https://gmad.up.railway.app/api/public/productos/"
-const urlboleta = "https://gmad.up.railway.app/api/public/boleta/"
-const urldetalleboleta = "https://gmad.up.railway.app/api/public/detalleboleta/"
+const urlboleta = "https://gmad.up.railway.app/api/fake/boleta/"
+const urldetalleboleta = "https://gmad.up.railway.app/api/fake/detalleboleta/"
 // const url = "http://127.0.0.1:8000/api/public/productos/"
 // const urlboleta = "http://127.0.0.1:8000/api/public/boleta/"
 // const urldetalleboleta = "http://127.0.0.1:8000/api/public/detalleboleta/"
