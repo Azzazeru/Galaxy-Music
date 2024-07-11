@@ -1,16 +1,10 @@
+{% extends 'base/padre.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualización de Estadísticas</title>
+{% block css %}
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/grafico.css' %}">
-</head>
-
-<body>
+{% endblock css %}
+{% block contenido %}
     <main>
         <h1>Productos</h1>
         <p>Visualización de estadísticas</p>
@@ -78,9 +72,8 @@
 
 
     </main>
-
+{% endblock contenido %}
+{% block js %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="{% static 'js/graficoScript.js' %}"></script>
-</body>
-
-</html>
+{% endblock js %}

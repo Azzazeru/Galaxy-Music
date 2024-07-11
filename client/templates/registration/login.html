@@ -1,17 +1,14 @@
+{% extends 'base/padre.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+{% block css %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-</head>
-<body>
+{% endblock css %}
+{% block contenido %}
     <main class="container">
         <section class="row justify-content-center text-center">
             <div class="col-12 area">
-                <h1>Departamento de Análisis de Productos</h1>
+                <img src="{% static 'images/logo.png' %}" alt="Galaxy Music Logo" width="100">
+                <h1 class="text-center fs-4">Departamento de Análisis de Productos</h1>
             </div>
         </section>
         <section class="row mt-3 justify-content-center">
@@ -30,5 +27,4 @@
             </div>
         </section>
     </main>
-</body>
-</html>
+{% endblock contenido %}

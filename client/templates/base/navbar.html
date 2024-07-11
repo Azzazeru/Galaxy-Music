@@ -1,9 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <button class="navbar-toggler order-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <a class="navbar-brand" href="{% url 'admin' %}">Galaxy Music</a>
         <div class="ms-3">
             <a class="navbar-brand order-md-1" href="{% url 'admin' %}"> 
@@ -17,7 +14,9 @@
                 </span>
                 <a class="btn btn-outline-light" href="{% url 'exit' %}">Cerrar Sesión</a>
             {% else %}
-                <a class="btn btn-outline-light" href="{% url 'login' %}">Iniciar Sesión</a>
+                {% if request.resolver_match.url_name != 'login' %}
+                    <a class="btn btn-outline-light" href="{% url 'login' %}">Iniciar Sesión</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>
