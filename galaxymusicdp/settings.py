@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
     'corsheaders',
-    'rest_framework',
+    'rest_framework', 'django_filters',
     'client', 'api',
 ]
 
@@ -85,15 +85,15 @@ WSGI_APPLICATION = 'galaxymusicdp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-}
 # DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / "db.sqlite3",
-    # }
+#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
+    }
+}
 
 
 # Password validation
@@ -154,3 +154,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 LOGIN_REDIRECT_URL = 'admin'
 LOGOUT_REDIRECT_URL = 'admin'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}

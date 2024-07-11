@@ -1,11 +1,10 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required , user_passes_test
 from django.contrib.auth import logout
-from django.http import HttpResponseForbidden
 # Create your views here.
 
 def boss_required(user):
-    return user.username == 'jorgelagosboss'
+    return user.is_staff
 
 boss_required = user_passes_test(boss_required)
 
@@ -28,11 +27,10 @@ def render_instrumento(request):
 
 @boss_required
 def render_aprobar_productos(request):
-    if request.user.username != 'jorgelagosboss':
-        return HttpResponseForbidden('Solo el jefe puede entrar aquí.')
     
+
     return render(request, 'aprobar_productos.html')
 
-def exit(request):
+def exit_page(request):
     logout(request)
     return render(request, 'admin.html')

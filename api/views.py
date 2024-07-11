@@ -1,11 +1,21 @@
-from rest_framework import viewsets
-
-
-from .models import *
-from .serializer import *
-
 from functools import wraps
+from rest_framework import viewsets
 from django.core.exceptions import PermissionDenied
+
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import ProductoFilter
+
+
+from .models import Disco, Instrumento, Producto, Artista, SelloDiscografico, GeneroMusical, \
+                    TipoInstrumento, EspecieInstrumento, MarcaInstrumento, Presupuesto, Boleta,  \
+                    TipoDisco, DetalleBoleta
+
+from .serializer import DiscoSerializer, InstrumentoSerializer, ProductoSerializer, \
+                    TipoInstrumentoSerializer, EspecieInstrumentoSerializer, \
+                    TipoDiscoSerializer, DetalleBoletaSerializer, SelloDiscograficoSerializer, \
+                    BoletaSerializer, ArtistaSerializer, PresupuestoSerializer, \
+                    GeneroMusicalSerializer, MarcaInstrumentoSerializer
+
 
 def login_required_api(view_func):
     @wraps(view_func)
@@ -102,3 +112,5 @@ class InstrumentoReadViewSet(viewsets.ReadOnlyModelViewSet):
 class ProductoReadViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductoFilter

@@ -1,5 +1,9 @@
 from rest_framework import serializers
-from .models import *
+
+
+from .models import Disco, Instrumento, Producto, Artista, SelloDiscografico, GeneroMusical, \
+                    TipoInstrumento, EspecieInstrumento, MarcaInstrumento, Presupuesto, Boleta,  \
+                    TipoDisco, DetalleBoleta
 
 
 
@@ -14,8 +18,12 @@ class InstrumentoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductoSerializer(serializers.ModelSerializer):
-    disco_id = serializers.PrimaryKeyRelatedField(queryset=Disco.objects.all(), source='disco', write_only=True, allow_null=True, required=False)
-    instrumento_id = serializers.PrimaryKeyRelatedField(queryset=Instrumento.objects.all(), source='instrumento', write_only=True, allow_null=True, required=False)
+    disco_id = serializers.PrimaryKeyRelatedField(queryset=Disco.objects.all(), source='disco', 
+                                                    write_only=True, allow_null=True, 
+                                                    required=False)
+    instrumento_id = serializers.PrimaryKeyRelatedField(queryset=Instrumento.objects.all(), 
+                                                        source='instrumento', write_only=True, 
+                                                        allow_null=True, required=False)
     disco = DiscoSerializer(read_only=True)
     instrumento = InstrumentoSerializer(read_only=True)
     
@@ -23,10 +31,6 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto
         fields = '__all__'
 
-# class UsuarioSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Usuario
-#         fields = '__all__'
 
 ## Aparte
 

@@ -1,7 +1,12 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 from rest_framework import routers
-from .views import *
+
+from .views import DiscoViewSet, InstrumentoViewSet, ProductoViewSet, SelloDiscograficoViewSet, \
+                    TipoInstrumentoViewSet, EspecieInstrumentoViewSet, MarcaInstrumentoViewSet,  \
+                    TipoDiscoViewSet, DetalleBoletaViewSet, GeneroMusicalViewSet, \
+                    BoletaViewSet, ArtistaViewSet, PresupuestoViewSet, \
+                    PresupuestoReadViewSet, DiscoReadViewSet, InstrumentoReadViewSet, \
+                    ProductoReadViewSet
 
 
 public_router = routers.DefaultRouter()
