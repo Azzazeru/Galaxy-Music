@@ -16,7 +16,6 @@ def test_get_productos_aprobados():
     
     assert response.status_code == 200
 
-
 # Importa el decorador pytest.mark.django_db y la clase TestCase de Django
 @pytest.mark.django_db
 class TestDiscoModel(TestCase):

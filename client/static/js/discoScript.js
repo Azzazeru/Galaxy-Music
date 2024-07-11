@@ -8,17 +8,15 @@ const d = document,
   $discosTable = d.querySelector("#discos-table tbody"),
   $discoTemplate = d.getElementById("disco-template").content,
   $discoFragment = d.createDocumentFragment();
-  $discoForm = d.querySelector(".crud-form");
+$discoForm = d.querySelector(".crud-form");
 
-  csrftoken = d.querySelector('[name=csrfmiddlewaretoken]').value;
+csrftoken = d.querySelector('[name=csrfmiddlewaretoken]').value;
 
-  $filtroGenero = d.getElementById('filtroGenero'),
+$filtroGenero = d.getElementById('filtroGenero'),
   $filtroArtista = d.getElementById('filtroArtista');
-  $filtroTipo = d.getElementById('filtroTipo');
-  $filtroFecha = d.getElementById('filtroFecha');
-  $filtroSello = d.getElementById('filtroSello');
-  $filtroAnioDesde = d.getElementById('filtroAnioDesde');
-  $filtroAnioHasta = d.getElementById('filtroAnioHasta');
+$filtroTipo = d.getElementById('filtroTipo');
+$filtroFecha = d.getElementById('filtroFecha');
+$filtroSello = d.getElementById('filtroSello');
 
 const getAllDiscos = async () => {
   try {
@@ -74,34 +72,99 @@ const aplicarFiltros = () => {
   const tipoSeleccionado = $filtroTipo.value.toLowerCase();
   const selloSeleccionado = $filtroSello.value.toLowerCase();
 
-  let discosFiltrados = discosData.filter(p => {
-      if (p.disco
-          && p.disco.genero_musical
-          && p.disco.artista
-          && p.disco.tipo_disco
-          && p.disco.sello_discografico
-          && p.disco.fecha_lanzamiento
-      ) {
-          const cumpleGenero = generoSeleccionado === '' || p.disco.genero_musical.toLowerCase() === generoSeleccionado;
-          const cumpleArtista = artistaSeleccionado === '' || p.disco.artista.toLowerCase().includes(artistaSeleccionado);
-          const cumpleTipo = tipoSeleccionado === '' || p.disco.tipo_disco.toLowerCase() === tipoSeleccionado;
-          const cumpleSello = selloSeleccionado === '' || p.disco.sello_discografico.toLowerCase().includes(selloSeleccionado);
+  let discosFiltrados = discosData.filter((p) => {
+    if (
+      p.disco &&
+      p.disco.genero_musical &&
+      p.disco.artista &&
+      p.disco.tipo_disco &&
+      p.disco.sello_discografico &&
+      p.disco.fecha_lanzamiento
+    ) {
+      const cumpleGenero =
+        generoSeleccionado === "" ||
+        p.disco.genero_musical.toLowerCase() === generoSeleccionado;
+      const cumpleArtista =
+        artistaSeleccionado === "" ||
+        p.disco.artista.toLowerCase().includes(artistaSeleccionado);
+      const cumpleTipo =
+        tipoSeleccionado === "" ||
+        p.disco.tipo_disco.toLowerCase() === tipoSeleccionado;
+      const cumpleSello =
+        selloSeleccionado === "" ||
+        p.disco.sello_discografico
+          .toLowerCase()
+          .includes(selloSeleccionado);
 
-          return cumpleGenero && cumpleArtista && cumpleTipo && cumpleSello;
-      } else {
-          return false;
-      }
+      return (
+        cumpleGenero &&
+        cumpleArtista &&
+        cumpleTipo &&
+        cumpleSello
+      );
+    } else {
+      return false;
+    }
   });
 
-  discosFiltrados.sort((a, b) => new Date(b.disco.fecha_lanzamiento) - new Date(a.disco.fecha_lanzamiento));
+  if (ordenFechaAscendente) {
+    discosFiltrados.sort(
+      (a, b) =>
+        new Date(a.disco.fecha_lanzamiento) -
+        new Date(b.disco.fecha_lanzamiento)
+    );
+  } else {
+    discosFiltrados.sort(
+      (a, b) =>
+        new Date(b.disco.fecha_lanzamiento) -
+        new Date(a.disco.fecha_lanzamiento)
+    );
+  }
 
   renderizarDiscos(discosFiltrados);
 };
 
-$filtroGenero.addEventListener('change', aplicarFiltros);
-$filtroArtista.addEventListener('change', aplicarFiltros);
-$filtroTipo.addEventListener('change', aplicarFiltros);
-$filtroSello.addEventListener('change', aplicarFiltros);
+
+const ordenFechaAscendente = () => {
+  discosData.sort((a, b) => {
+      if (a.disco && a.disco.fecha_lanzamiento && b.disco && b.disco.fecha_lanzamiento) {
+          return new Date(a.disco.fecha_lanzamiento) - new Date(b.disco.fecha_lanzamiento);
+      } else {
+          return 0; 
+      }
+  });
+  renderizarDiscos(discosData);
+};
+
+
+const ordenFechaDescendente = () => {
+  discosData.sort((a, b) => {
+      if (a.disco && a.disco.fecha_lanzamiento && b.disco && b.disco.fecha_lanzamiento) {
+          return new Date(b.disco.fecha_lanzamiento) - new Date(a.disco.fecha_lanzamiento);
+      } else {
+          return 0; 
+      }
+  });
+  renderizarDiscos(discosData);
+};
+
+const cambiarOrdenFecha = (tipoOrden) => {
+  if (tipoOrden === 'ascendente') {
+      ordenFechaAscendente();
+  } else if (tipoOrden === 'descendente') {
+      ordenFechaDescendente();
+  }
+};
+
+
+$filtroGenero.addEventListener("change", aplicarFiltros);
+$filtroArtista.addEventListener("change", aplicarFiltros);
+$filtroTipo.addEventListener("change", aplicarFiltros);
+$filtroSello.addEventListener("change", aplicarFiltros);
+
+d.getElementById('ascendente').addEventListener('click', () => cambiarOrdenFecha('ascendente'));
+d.getElementById('descendente').addEventListener('click', () => cambiarOrdenFecha('descendente'));
+
 
 d.addEventListener("DOMContentLoaded", getAllDiscos);
 
