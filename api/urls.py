@@ -17,8 +17,6 @@ public_router.register(r'tipodiscos', TipoDiscoViewSet)
 public_router.register(r'tipoinstrumento', TipoInstrumentoViewSet)
 public_router.register(r'especieinstrumento', EspecieInstrumentoViewSet)
 public_router.register(r'marcainstrumento', MarcaInstrumentoViewSet)
-public_router.register(r'boleta', BoletaViewSet)
-public_router.register(r'detalleboleta', DetalleBoletaViewSet)
 
 public_router.register(r'presupuesto', PresupuestoReadViewSet)
 public_router.register(r'discos', DiscoReadViewSet)
@@ -31,9 +29,14 @@ hidden_router.register(r'presupuesto', PresupuestoViewSet)
 hidden_router.register(r'discos', DiscoViewSet)
 hidden_router.register(r'instrumentos', InstrumentoViewSet)
 
+fake_router = routers.DefaultRouter()
+fake_router.register(r'boleta', BoletaViewSet)
+fake_router.register(r'detalleboleta', DetalleBoletaViewSet)
+
 
 
 urlpatterns = [
     path('hidden/', include(hidden_router.urls)),
     path('public/', include(public_router.urls)),
+    path('fake/', include(fake_router.urls)),
 ]
