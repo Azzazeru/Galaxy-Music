@@ -207,6 +207,74 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "tf1zdTX8HdINzZNHUhb8B3pq5Z9ox103",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "jorgelagosboss",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jorgelagosboss12345",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://gmad.up.railway.app/accounts/login/",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"accounts",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://gmad.up.railway.app/api/public/productos/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gmad.up.railway.app/api/public/productos/",
+					"protocol": "https",
+					"host": [
+						"gmad",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"public",
+						"productos",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
